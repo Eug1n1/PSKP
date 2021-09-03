@@ -1,0 +1,13 @@
+{
+  "name": "lab_1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "task_2.js",
+  "scripts": {
+    "hui": "node task_2.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
