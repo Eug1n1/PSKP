@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JQuery</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+
+    <div id="text_area"></div>
+
+    <script>
+        let textArea = document.getElementById("text_area");
+        window.addEventListener("load", function () {
+            $.ajax({
+                type: 'GET',
+                url: "/api/name",
+                timeout: 15000,
+                async: true,
+                success: function (data) {
+                    textArea.innerText = data;
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    textArea.innerHTML = "Error!"
+                }
+            });
+        });
+    </script>
+</body>
+</html>
