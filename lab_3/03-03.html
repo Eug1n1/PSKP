@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fucking fac</title>
+</head>
+<body>
+<div id="text_area"></div>
+<script>
+    window.addEventListener("load", async function ()
+    {
+        const startTime = Date.now();
+        let result;
+        let json;
+        for (i = 0; i < 21; i++) {
+            let milliSec = Date.now() - startTime;
+            let res = await fetch(`/fact?k=${i}`, {method: "GET"});
+            let textArea = document.getElementById("text_area");
+            json = await res.text();
+            result = JSON.parse(json).fact;
+            console.log(result);
+            textArea.innerText += `${i}.Результат: ${milliSec}-${i}/${result}\n`;
+        }
+    });
+</script>
+</body>
+</html>

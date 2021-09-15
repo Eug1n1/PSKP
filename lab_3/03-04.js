@@ -1,10 +1,17 @@
 const http = require('http');
 const url = require("url");
 const fs = require("fs");
+const process = require("async");
 
-function factorial(n) {
-    return n >= 1 ? n * factorial(n - 1) : 1;
-}
+const async_factorial = function (n, callback) {
+    let fact = 1;
+    process.nextTick(function () {
+        for (let i = 1; i <= n; i++) {
+            fact = fact * i;
+        }
+        callback(fact);
+    });
+};
 
 http.createServer(function (req, res)
     {
@@ -16,7 +23,10 @@ http.createServer(function (req, res)
             if (parsedUrl.pathname === "/fact") {
                 let k = queryAsObject.k;
                 res.writeHead(200, {'Content-Type': 'text/json'});
-                res.end(JSON.stringify({k: k, fact: factorial(k)}))
+                async_factorial(k, function (fact)
+                {
+                   res.end(JSON.stringify({k: k, fact: fact}));
+                });
             }
 
             if (parsedUrl.pathname === "/") {
