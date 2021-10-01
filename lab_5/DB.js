@@ -11,6 +11,11 @@ let db_data = [
 
 function DB()
 {
+    this.commit = () =>
+    {
+        console.log('\ncommit')
+    }
+
     this.insert = (newLine) =>
     {
         db_data.push(newLine)

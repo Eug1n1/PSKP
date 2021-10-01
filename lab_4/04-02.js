@@ -44,8 +44,27 @@ db.on('DELETE', (req, res) =>
 
 http.createServer(((req, res) =>
 {
-    if (url.parse(req.url).pathname === '/api/db')
+    switch (url.parse(req.url).pathname)
     {
-        db.emit(req.method, req, res)
+        case '/':
+        {
+            fs.readFile('./index.html', (err, data) =>
+            {
+                if(err)
+                {
+                    throw err;
+                }
+                res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
+                res.end(data);
+            });
+        }
+            break;
+        case '/api/db':
+        {
+            db.emit(req.method, req, res)
+        }
+            break;
+        default:
+            break;
     }
 })).listen(3000)
