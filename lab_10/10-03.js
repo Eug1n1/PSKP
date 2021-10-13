@@ -9,7 +9,9 @@ wsServer.broadcast = function (message)
 {
     wsServer.clients.forEach(client =>
     {
-        client.send(message)
+        if(client.readyState===WebSocket.OPEN){
+            client.send(message);
+        }
     })
 }
 
