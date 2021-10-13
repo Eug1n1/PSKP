@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "@types/node": "^16.10.4"
+  },
+  "dependencies": {
+    "rpc-websockets": "^7.4.15",
+    "ws": "^8.2.3"
+  }
+}

@@ -1,11 +1,11 @@
-var http = require("http");
-var fs = require("fs");
+const http = require("http");
+const fs = require("fs");
 
 http.createServer(function (req, res)
 {
     let path = "";
 
-    if (req.url == "/")
+    if (req.url === "/")
     {
         let html = fs.readFileSync("./02-01.html");
         res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
