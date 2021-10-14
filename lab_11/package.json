@@ -3,6 +3,7 @@
     "@types/node": "^16.10.4"
   },
   "dependencies": {
+    "async": "^3.2.1",
     "rpc-websockets": "^7.4.15",
     "ws": "^8.2.3"
   }
