@@ -1,0 +1,17 @@
+{
+  "name": "ses_mypackage",
+  "version": "2.0.0",
+  "description": "send email",
+  "main": "m0603.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mail"
+  ],
+  "author": "eug1n1",
+  "license": "ISC",
+  "dependencies": {
+    "nodemailer": "^6.7.0"
+  }
+}

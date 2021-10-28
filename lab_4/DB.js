@@ -32,7 +32,7 @@ function DB()
 
     this.update = (newLine) =>
     {
-        let index = db_data.findIndex(x => x.id === newLine.id)
+        let index = db_data.findIndex(x => Number(x.id) === Number(newLine.id))
         if (index !== -1)
         {
             db_data[index] = newLine

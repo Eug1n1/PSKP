@@ -1,7 +1,7 @@
 const http = require('http')
 const url = require('url')
 const fs = require('fs')
-const querystring = require('querystring');
+const querystring = require('querystring')
 const DB = require('./DB')
 
 let db = new DB.DB()
@@ -18,7 +18,7 @@ db.on('POST', (req, res) =>
         let newLine = JSON.parse(data)
         db.insert(newLine)
     })
-    res.writeHead(200);
+    res.writeHead(200)
     res.end("OK")
 })
 
@@ -29,7 +29,7 @@ db.on('PUT', (req, res) =>
         let newLine = JSON.parse(data)
         db.update(newLine)
     })
-    res.writeHead(200);
+    res.writeHead(200)
     res.end("OK")
 })
 
@@ -52,19 +52,19 @@ http.createServer(((req, res) =>
             {
                 if(err)
                 {
-                    throw err;
+                    throw err
                 }
-                res.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-                res.end(data);
-            });
+                res.writeHead(200, {"Content-Type": "text/html charset=utf-8"})
+                res.end(data)
+            })
         }
-            break;
+            break
         case '/api/db':
         {
             db.emit(req.method, req, res)
         }
-            break;
+            break
         default:
-            break;
+            break
     }
 })).listen(3000)

@@ -84,6 +84,8 @@ db.on('DELETE', (req, res) =>
 
 const server= http.createServer(((req, res) =>
 {
+    req.socket.unref()
+
     switch (url.parse(req.url).pathname)
     {
         case '/':

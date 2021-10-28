@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "async": "^3.2.1",
     "sendmail": "^1.6.1"
   }
 }

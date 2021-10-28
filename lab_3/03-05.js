@@ -21,16 +21,15 @@ const async_factorial = function (n, callback) {
     });
 };
 
-http.createServer(function (req, res)
-    {
-        let parsedUrl = url.parse(req.url, true); // true to get query as object
+http.createServer(function (req, res) {
+        let parsedUrl = url.parse(req.url, true);
         let queryAsObject = parsedUrl.query;
 
         let path;
         if (req.method === "GET") {
             if (parsedUrl.pathname === "/fact") {
                 let k = queryAsObject.k;
-                res.writeHead(200, {'Content-Type': 'text/json'});
+                res.writeHead(200, {'Content-Type': 'application/json'});
                 async_factorial(k, function (fact)
                 {
                    res.end(JSON.stringify({k: k, fact: fact}));
@@ -41,15 +40,14 @@ http.createServer(function (req, res)
                 path = "03-03.html"
 
                 fs.stat(path, (err, stats) => {
-                        if (err != null) {
-                            console.log(err);
-                        }
-
-                        let text = fs.readFileSync(path);
-                        res.writeHead(200, {"Content-Type": "text/html; charset=utf-8", "Content-Length": stats.size});
-                        res.end(text, "binary");
+                    if (err != null) {
+                        console.log(err);
                     }
-                );
+
+                    let text = fs.readFileSync(path);
+                    res.writeHead(200, {"Content-Type": "text/html; charset=utf-8", "Content-Length": stats.size});
+                    res.end(text, "binary");
+                });
             }
         }
     }

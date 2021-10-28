@@ -1,24 +1,22 @@
-const readline = require('readline');
-var http = require('http');
+const readline = require('readline')
+const http = require('http')
 
-let state = "norm";
+let state = "norm"
 
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
     prompt: `${state}->`
-});
+})
 
 
-http.createServer(function (request, response)
-    {
-        response.writeHead(200, {'Content-Type': 'text/html'});
-        response.end(`<h1>${state}</h1>`)
-    }
-).listen(3000);
+http.createServer(function (request, response) {
+    response.writeHead(200, {'Content-Type': 'text/html'})
+    response.end(`<h1>${state}</h1>`)
+}).listen(3000)
 
 
-rl.prompt();
+rl.prompt()
 
 rl.on('line', (line) => {
     switch (line.trim()) {
@@ -26,19 +24,16 @@ rl.on('line', (line) => {
         case 'stop':
         case 'test':
         case 'idle':
-            console.log(`res = ${state} -> ${line}`);
-            state = line;
-            rl.setPrompt(`${state}->`);
-            break;
+            console.log(`res = ${state} -> ${line}`)
+            state = line
+            rl.setPrompt(`${state}->`)
+            break
         case 'exit':
-            process.exit(0);
-            break;
+            process.exit(0)
+            break
         default:
-            console.log(line);
-            break;
+            console.log(line)
+            break
     }
-    rl.prompt();
-}).on('close', () => {
-    console.log('Have a great day!');
-    process.exit(0);
-});
+    rl.prompt()
+})

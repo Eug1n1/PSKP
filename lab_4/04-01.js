@@ -8,7 +8,7 @@ let db = new DB.DB()
 
 db.on('GET', (req, res) =>
 {
-    res.end(JSON.stringify(db.select()))
+    res.end(JSON.stringify(db.select(), null, '  '))
 })
 
 db.on('POST', (req, res) =>
