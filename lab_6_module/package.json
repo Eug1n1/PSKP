@@ -1,5 +1,5 @@
 {
   "dependencies": {
-  	"ses_mypackage"
+    "ses_mypackage": "^2.0.0"
   }
 }

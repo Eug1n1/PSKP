@@ -1,3 +1,4 @@
+/*
 const http = require('http')
 const multiparty = require("multiparty");
 
@@ -49,3 +50,23 @@ req.on('error', error => {
 })
 
 req.end()
+*/
+
+const axios = require('axios')
+const fs = require('fs')
+
+async function getImage() {
+  try {
+    let config = {
+      responseType: 'stream'
+    }
+
+    let response = await axios.get('http://localhost:3000/', config)
+    console.log(response.status)
+    response.data.pipe(fs.createWriteStream('./static/file.txt'))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+getImage()

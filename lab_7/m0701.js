@@ -28,7 +28,7 @@ module.exports.get_handler = (dir, res, req) =>
             return
         }
 
-        if (fs.existsSync(dir + urlObject.pathname))
+        if (fs.existsSync(filePath))
         {
             let mime = mimeDict[fileExtension]
 

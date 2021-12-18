@@ -46,13 +46,10 @@ module.exports.getHandler = (req, res, server) =>
             }
 
             // let resHeaders = ''
-            // for(let key in res.getHeaders())
+            // for(let key in res.getHeaders)
             // {
             //     resHeaders += `${key}: ${res.headers[key]}\n`
             // }
-            //
-            // console.log(res.getHeaders())
-            // console.log(resHeaders)
 
             res.end(`REQUEST:\n${reqHeaders}\nRESPONSE:`)
             break
@@ -74,7 +71,7 @@ module.exports.getHandler = (req, res, server) =>
 
             break
         case '/close':
-            setTimeout(() => server.close(), 10000)
+            setTimeout(() => server.close(), 1000)
             res.end('server will be stopped after 10 sec')
             break
         case '/socket':

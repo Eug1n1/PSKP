@@ -29,8 +29,7 @@
 
             res = await fetch('http://localhost:3000/xml_file.xml', {method: "GET"});
             let xmlArea = document.getElementById("xml_area");
-            let text = await res.text();
-            xmlArea.innerHTML = text //new window.DOMParser().parseFromString(text, "text/xml")
+            xmlArea.innerHTML = await res.text() //new window.DOMParser().parseFromString(text, "text/xml")
         })
 
     </script>

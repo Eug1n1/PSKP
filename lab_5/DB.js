@@ -13,7 +13,7 @@ function DB()
 {
     this.commit = () =>
     {
-        console.log('\ncommit')
+        return 1
     }
 
     this.insert = (newLine) =>
