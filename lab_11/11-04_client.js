@@ -24,7 +24,7 @@ socket.on('open', () =>
 
 socket.on('message', message =>
 {
-    console.log(JSON.parse(message.toString()))
+    console.log(message.toString())
 })
 
 socket.on('close', () =>

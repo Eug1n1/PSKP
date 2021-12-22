@@ -7,7 +7,7 @@ const fs = require('fs')
 
 const path = 'StudentList.json'
 
-function deleteHandler(req, res)
+function deleteHandler(req, res, wsServer)
 {
     let urlObject = url.parse(req.url)
 
@@ -27,7 +27,7 @@ function deleteHandler(req, res)
                 students.splice(index, 1)
 
                 fs.writeFileSync(path, JSON.stringify(students))
-
+                // wsServer.emit('change')
                 res.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'})
                 res.end(JSON.stringify(student, null, '    '))
 
@@ -39,7 +39,7 @@ function deleteHandler(req, res)
                 let month = Number(backupMatch[2])
                 let day = Number(backupMatch[3])
 
-                let deleteDate = new Date(year, month - 1, day, 3)
+                let deleteDate = new Date(year, month, day)
 
                 fs.readdir(__dirname, (err, files) =>
                 {
@@ -60,7 +60,9 @@ function deleteHandler(req, res)
                             let month = Number(fileMatch[2])
                             let day = Number(fileMatch[3])
 
-                            if (new Date(year, month, day) < deleteDate)
+                            let my_date = new Date(year, month, day)
+
+                            if (my_date < deleteDate)
                             {
                                 fs.unlinkSync(fileMatch[0])
                                 res.write(fileMatch[0])

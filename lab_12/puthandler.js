@@ -3,7 +3,7 @@ const fs = require('fs')
 
 const path = 'StudentList.json'
 
-function putHandler(req, res)
+function putHandler(req, res, wsServer)
 {
     let urlObject = url.parse(req.url)
 
@@ -27,7 +27,7 @@ function putHandler(req, res)
                     res.end(JSON.stringify(student, null, '    '))
 
                     fs.writeFileSync(path, JSON.stringify(students))
-
+                    // wsServer.emit('change')
                     return
                 }
 

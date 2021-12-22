@@ -24,6 +24,8 @@ client.on('open', () =>
             case 'C':
                 client.notify('C')
                 break;
+            default:
+                client.notify('ALL')
         }
         rl.prompt();
     })

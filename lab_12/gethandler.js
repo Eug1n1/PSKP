@@ -14,7 +14,7 @@ function getHandler(req, res)
             let students = JSON.parse(file.toString())
 
             res.writeHead(200, {'Content-Type': 'application/json'})
-            res.end(JSON.stringify(students, null, '    '))
+            res.end(JSON.stringify(students, null, '\t'))
 
             return
 
@@ -29,11 +29,11 @@ function getHandler(req, res)
 
                 files.forEach(file =>
                 {
-                    let fileMatch = file.match(/^(\d{4})(\d{2})(\d{2})\d{4}_StudentList.json$/)
+                    let fileMatch = file.match(/^\d{12}_StudentList.json$/)
 
                     if (fileMatch)
                     {
-                        res.write(fileMatch[0])
+                        res.write(fileMatch[0] + '\n')
                     }
                 })
 

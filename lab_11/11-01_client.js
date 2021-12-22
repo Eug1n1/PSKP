@@ -7,7 +7,6 @@ let path = './download/1.txt'
 
 socket.on('open',()=>
 {
-
     const duplex = ws.createWebSocketStream(socket,{encoding:'utf-8'});
     let file = fs.createReadStream(path);
 

@@ -1,24 +1,38 @@
 const http = require('http')
+const fs = require('fs')
 const { getHandler } = require('./gethandler')
 const { postHandler } = require('./posthandler')
 const { putHandler } = require('./puthandler')
 const { deleteHandler } = require('./deletehandler')
+const rpc = require('rpc-websockets').Server;
+const wsServer=new rpc({port:4000});
+
+wsServer.event('change')
+
+fs.watch("./StudentList.json",(event,f)=>
+{
+    if(f) {
+        console.log(event)
+        wsServer.emit("change");
+    }
+})
 
 const server = http.createServer((req, res) =>
 {
+
     switch (req.method)
     {
         case 'GET':
             getHandler(req, res)
             break
         case 'POST':
-            postHandler(req, res)
+            postHandler(req, res, wsServer)
             break
         case 'DELETE':
-            deleteHandler(req, res)
+            deleteHandler(req, res, wsServer)
             break
         case 'PUT':
-            putHandler(req, res)
+            putHandler(req, res, wsServer)
             break
     }
 })

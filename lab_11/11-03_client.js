@@ -12,7 +12,7 @@ socket.on('message', (message) =>
     console.log(message.toString())
 })
 
-socket.on('open', () =>
+socket.on('close', () =>
 {
     console.log('close')
 })

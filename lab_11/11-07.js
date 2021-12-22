@@ -16,3 +16,8 @@ server.register('C', args =>
 {
     console.log('C')
 }).public()
+
+server.register('ALL', args =>
+{
+    console.log('ALL')
+}).public()

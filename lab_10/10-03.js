@@ -3,7 +3,7 @@ const http = require('http')
 const url = require('url')
 const fs = require('fs')
 
-const wsServer = new WebSocket.Server({port: 1000});
+const wsServer = new WebSocket.Server({port: 4000});
 
 wsServer.broadcast = function (message)
 {

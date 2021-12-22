@@ -1,4 +1,5 @@
 const ws = require('ws')
+const {json} = require("stream/consumers");
 
 const server = new ws.Server({port: 4000})
 
@@ -8,11 +9,13 @@ server.on('connection', client =>
 {
     client.on('message', message =>
     {
+        console.log(message.toString())
+
         let jsonMessage = JSON.parse(message.toString())
         client.send(JSON.stringify({
             server: messageIndex++,
             client: jsonMessage.client,
-            timestamp: new Date().toISOString()
-        }))
+            timestamp: jsonMessage.timestamp
+        }, null, '\t'))
     })
 })

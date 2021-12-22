@@ -13,8 +13,4 @@ webSocket.on('open', () =>
     duplex.pipe(file)
 })
 
-webSocket.on('close', () =>
-{
-    console.log('close')
-})
 
