@@ -7,11 +7,13 @@
 <body>
     <div id="text_area"></div>
     <script>
-        window.addEventListener("load", async function () {
-            let res = await fetch("/api/name", {method: "GET"});
-            let textArea = document.getElementById("text_area");
-            textArea.innerText = await res.text();
-        });
+
+        window.addEventListener("load", async () => {
+            let res = await fetch("/api/name", {method: "GET"})
+            let textArea = document.getElementById("text_area")
+            textArea.innerText = await res.text()
+        })
+
     </script>
 </body>
 </html>

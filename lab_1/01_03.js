@@ -2,12 +2,14 @@ var http = require('http');
 
 let printHeaders = (request) =>
 {
-    let rc = "";
+    let headers = "";
+
     for(let key in request.headers)
     {
-        rc += `<h3> ${key} : ${request.headers[key]}</h3>`
+        headers += `<h3> ${key} : ${request.headers[key]}</h3>`
     }
-    return rc;
+
+    return headers;
 }
 
 http.createServer(function (request, response)

@@ -10,21 +10,21 @@
     <div id="text_area"></div>
 
     <script>
-        let textArea = document.getElementById("text_area");
-        window.addEventListener("load", function () {
+        let textArea = document.getElementById("text_area")
+        window.addEventListener("load", () => {
             $.ajax({
                 type: 'GET',
                 url: "/api/name",
                 timeout: 15000,
                 async: true,
-                success: function (data) {
-                    textArea.innerText = data;
+                success: (data) => {
+                    textArea.innerText = data
                 },
-                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                error: (XMLHttpRequest, textStatus, errorThrown) => {
                     textArea.innerHTML = "Error!"
                 }
-            });
-        });
+            })
+        })
     </script>
 </body>
 </html>

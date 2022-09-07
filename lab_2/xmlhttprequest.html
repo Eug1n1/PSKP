@@ -9,17 +9,20 @@
     <div id="text_area"></div>
 
     <script>
-        let textArea = document.getElementById("text_area");
+        let textArea = document.getElementById("text_area")
+
         window.addEventListener("load", function () {
-            let request = new XMLHttpRequest();
-            request.open('GET', '/api/name', true);
-            request.addEventListener('readystatechange', function () {
+            let request = new XMLHttpRequest()
+            request.open('GET', '/api/name', true)
+
+            request.addEventListener('readystatechange', () => {
                 if ((request.readyState === 4) && (request.status === 200)) {
-                    textArea.innerHTML = request.responseText;
+                    textArea.innerHTML = request.responseText
                 }
-            });
-            request.send();
-        });
+            })
+
+            request.send()
+        })
     </script>
 </body>
 </html>
