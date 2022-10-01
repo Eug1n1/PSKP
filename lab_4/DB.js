@@ -13,7 +13,15 @@ function DB()
 {
     this.insert = (newLine) =>
     {
+
+        let index = db_data.findIndex(x => x.id === Number(newLine.id))
+        if (index !== -1) {
+            return {"Error": "element already exists"}
+        }
+
         db_data.push(newLine)
+
+        return {"Ok": "ok"}
     }
 
     this.select = () =>
@@ -23,9 +31,16 @@ function DB()
 
     this.delete = (id) =>
     {
-        let index = db_data.findIndex(x => x.id === Number(id))
+        let index = db_data.findIndex(x => Number(x.id) === Number(id))
+
+        if (index == -1) {
+            return {"Error": "element not found"}
+        }
+
         let elementJson = db_data[index]
         db_data.splice(index, 1)
+
+        // console.log(db_data)
 
         return elementJson;
     }
@@ -33,13 +48,15 @@ function DB()
     this.update = (newLine) =>
     {
         let index = db_data.findIndex(x => Number(x.id) === Number(newLine.id))
-        if (index !== -1)
+
+        if (index === -1)
         {
-            db_data[index] = newLine
-            return true
+            return {"Error": "element does not exists"} 
         }
 
-        return false
+        // console.log(db_data)
+        db_data[index] = newLine
+        return {"Ok": "ok"}
     }
 }
 
