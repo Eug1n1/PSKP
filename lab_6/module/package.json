@@ -1,6 +1,6 @@
 {
   "name": "ses_mypackage",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "send email",
   "main": "m0603.js",
   "scripts": {

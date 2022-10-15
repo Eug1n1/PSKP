@@ -1,4 +1,6 @@
-const nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer')
+require('dotenv').config()
+
 module.exports.send = async (text) => {
     // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
@@ -6,15 +8,15 @@ module.exports.send = async (text) => {
         port: 465,
         secure: true, // true for 465, false for other ports
         auth: {
-            user: 'vldshss2000@gmail.com', // generated ethereal user
-            pass: 'vladoshuesos', // generated ethereal password
+            user: process.env.USER,
+            pass: process.env.PASS,
         },
     })
 
     // send mail with defined transport object
     let info = await transporter.sendMail({
-        from: 'vldshss@gmail.com', // sender address
-        to: 'jusapcourse@gmail.com', // list of receivers
+        from: process.env.USER,
+        to: process.env.TO,
         subject: 'send method', // Subject line
         html: `<b>${text}</b>`, // html body
     })
