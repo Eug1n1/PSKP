@@ -8,14 +8,14 @@ module.exports.send = async (text) => {
         port: 465,
         secure: true, // true for 465, false for other ports
         auth: {
-            user: process.env.USER,
+            user: process.env.EMAIL,
             pass: process.env.PASS,
         },
     })
 
     // send mail with defined transport object
     let info = await transporter.sendMail({
-        from: process.env.USER,
+        from: process.env.EMAIL,
         to: process.env.TO,
         subject: 'send method', // Subject line
         html: `<b>${text}</b>`, // html body

@@ -5,20 +5,25 @@ const fs = require('fs')
 const qs = require('querystring')
 require('dotenv').config()
 
-async function main(user = process.env.USER, pass = process.env.PASS , to = process.env.USER, text) {
+async function main(
+    user = process.env.EMAIL,
+    pass = process.env.PASS,
+    to = process.env.EMAIL,
+    text
+) {
     let transporter = nodemailer.createTransport({
         host: 'smtp.mail.ru',
         port: 465,
         secure: true,
         auth: {
-            user: user,
-            pass: pass,
+            user: user != '' ? user : process.env.EMAIL,
+            pass: pass != '' ? pass : process.env.PASS,
         },
     })
 
     let info = await transporter.sendMail({
-        from: user,
-        to: to,
+        from: user != '' ? user : process.env.EMAIL,
+        to: to != '' ? to : process.env.TO,
         subject: text,
         text: text,
     })
