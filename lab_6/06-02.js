@@ -11,6 +11,10 @@ async function main(
     to = process.env.EMAIL,
     text
 ) {
+    user = user.trim()
+    pass = pass.trim()
+    to = to.trim()
+
     let transporter = nodemailer.createTransport({
         host: 'smtp.mail.ru',
         port: 465,
