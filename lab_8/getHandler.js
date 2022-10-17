@@ -1,7 +1,7 @@
-const url = require("url");
-const querystring = require("querystring");
-const fs = require("fs");
-const path = require("path");
+const url = require('url')
+const querystring = require('querystring')
+const fs = require('fs')
+const path = require('path')
 
 const dir = 'static'
 
@@ -17,8 +17,7 @@ const mimeDict = {
     '.mp4': 'video/mp4',
 }
 
-module.exports.getHandler = (req, res, server) =>
-{
+module.exports.getHandler = (req, res, server) => {
     let urlObject = url.parse(req.url)
     let queryObject = querystring.parse(urlObject.query)
 
@@ -26,9 +25,9 @@ module.exports.getHandler = (req, res, server) =>
 
     switch (urlObject.pathname) {
         case '/connection':
-            let timeout = queryObject.set;
+            let timeout = queryObject.set
             if (timeout) {
-                server.keepAliveTimeout = Number(timeout);
+                server.keepAliveTimeout = Number(timeout)
                 res.end(`KeepAliveTimeout=${timeout}`)
                 return
             }
@@ -36,7 +35,6 @@ module.exports.getHandler = (req, res, server) =>
             res.end(server.keepAliveTimeout.toString())
             break
         case '/headers':
-
             // noinspection SpellCheckingInspection
             res.setHeader('moy-header', 'moe znachenie')
 
@@ -45,13 +43,17 @@ module.exports.getHandler = (req, res, server) =>
                 reqHeaders += `${key}: ${req.headers[key]}\n`
             }
 
-            // let resHeaders = ''
-            // for(let key in res.getHeaders)
-            // {
-            //     resHeaders += `${key}: ${res.headers[key]}\n`
-            // }
 
-            res.end(`REQUEST:\n${reqHeaders}\nRESPONSE:`)
+            let headersStr = ''
+            let headers = res.getHeaders()
+            for (let key in headers)
+            {
+                headersStr += `${key}: ${headers[key]}\n`
+            }
+            
+
+            res.end(`REQUEST:\n${reqHeaders}\nRESPONSE:\n${headersStr}`)
+            // res.end(`REQUEST:\n${reqHeaders}\nRESPONSE:`)
             break
         case '/parameter':
             let x = Number(queryObject.x)
@@ -71,8 +73,9 @@ module.exports.getHandler = (req, res, server) =>
 
             break
         case '/close':
-            setTimeout(() => server.close(), 1000)
             res.end('server will be stopped after 10 sec')
+            // server.keepAliveTimeout = 10
+            setTimeout(() => server.close(), 100)
             break
         case '/socket':
             res.write(`YOUR IP: ${req.socket.remoteAddress}\n`)
@@ -82,17 +85,16 @@ module.exports.getHandler = (req, res, server) =>
             res.end()
             break
         case '/req-data':
-            let chunkCount = 0;
+            let chunkCount = 0
 
-            req.on('data', (chunk) => {
-                chunkCount++;
-                console.log(`Chunk: ${chunkCount}`);
+            req.on('data', (_chunk) => {
+                chunkCount++
+                console.log(`Chunk: ${chunkCount}`)
             })
 
             res.end('OK')
             break
         case '/resp-status':
-
             let status = Number(queryObject.code)
             let message = queryObject.mess
 
@@ -101,25 +103,36 @@ module.exports.getHandler = (req, res, server) =>
             break
 
         case '/files':
-
             fs.readdir(dir, (err, files) => {
+                if (err) {
+                    res.end(err)
+                }
+
                 res.setHeader('x-static-files-count', files.length)
                 res.end()
-            });
+            })
 
             break
 
         case '/upload':
-
             let file = fs.readFileSync('./upload.html')
 
-            res.writeHead(200, {'Content-Type': 'text/html'})
+            res.writeHead(200, { 'Content-Type': 'text/html' })
             res.end(file)
 
             break
 
+        case '/formparameter':
+            let formparameter = fs.readFileSync('./formparameter.html')
+
+            res.writeHead(200, { 'Content-Type': 'text/html' })
+            res.end(formparameter)
+
+            break
         default:
-            let parameterRgxMatches = urlObject.pathname.match('^\/parameter\/(.+)\/(.+)$')
+            let parameterRgxMatches = urlObject.pathname.match(
+                '^/parameter/(.+)/(.+)$'
+            )
 
             if (parameterRgxMatches) {
                 let x = Number(parameterRgxMatches[1])
@@ -138,31 +151,26 @@ module.exports.getHandler = (req, res, server) =>
                 res.end(urlObject.pathname)
 
                 return
-            }
-            else if (urlObject.pathname.includes('/files/'))
-            {
+            } else if (urlObject.pathname.includes('/files/')) {
                 let filename = urlObject.pathname.replace('/files/', '')
                 let filePath = dir + '/' + filename
-                if (fs.existsSync(filePath))
-                {
+                if (fs.existsSync(filePath)) {
                     let fileExtension = path.parse(filename).ext
                     let mime = mimeDict[fileExtension]
 
-                    fs.stat(filePath, (err, stats) =>
-                    {
-                        if (err != null)
-                        {
-                            console.log(err);
+                    fs.stat(filePath, (err, stats) => {
+                        if (err != null) {
+                            console.log(err)
                         }
 
-                        let file = fs.readFileSync(filePath);
+                        let file = fs.readFileSync(filePath)
 
                         res.writeHead(200, {
-                            "Content-Type": mime,
-                            "Content-Length": stats.size,
-                            "Access-Control-Allow-Origin": "*"
-                        });
-                        res.end(file, "binary");
+                            'Content-Type': mime,
+                            'Content-Length': stats.size,
+                            'Access-Control-Allow-Origin': '*',
+                        })
+                        res.end(file, 'binary')
                     })
 
                     return
