@@ -2,19 +2,16 @@ const http = require('http')
 const url = require('url')
 const querystring = require('querystring')
 
-http.createServer((req, res) =>
-{
+http.createServer((req, res) => {
     let urlObject = url.parse(req.url)
 
     let data = ''
 
-    req.on('data', chunk =>
-    {
+    req.on('data', chunk => {
         data += chunk
     })
 
-    req.on('end', () =>
-    {
+    req.on('end', () => {
         let queryObject = querystring.parse(data)
 
         let x = Number(queryObject.x)

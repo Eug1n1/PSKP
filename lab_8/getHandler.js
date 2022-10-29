@@ -35,7 +35,7 @@ module.exports.getHandler = (req, res, server) => {
             res.end(server.keepAliveTimeout.toString())
             break
         case '/headers':
-            // noinspection SpellCheckingInspection
+
             res.setHeader('moy-header', 'moe znachenie')
 
             let reqHeaders = ''
