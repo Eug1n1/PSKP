@@ -3,20 +3,17 @@ const http = require('http')
 const url = require('url')
 const fs = require('fs')
 
-const wsServer = new WebSocket.Server({port: 4000});
+const wsServer = new WebSocket.Server({ port: 4000 });
 
-wsServer.broadcast = function (message)
-{
-    wsServer.clients.forEach(client =>
-    {
-        if(client.readyState===WebSocket.OPEN){
+wsServer.broadcast = (message) => {
+    wsServer.clients.forEach(client => {
+        if (client.readyState === WebSocket.OPEN) {
             client.send(message);
         }
     })
 }
 
-wsServer.on('connection', (wsClient) =>
-{
+wsServer.on('connection', (wsClient) => {
 
     console.log(wsClient._socket?.remoteAddress)
 
@@ -25,8 +22,7 @@ wsServer.on('connection', (wsClient) =>
 
     let reg = new RegExp(/^10-\d{2}-client:\s*(\d+)$/)
 
-    let interval = setInterval(() =>
-    {
+    let interval = setInterval(() => {
         wsClient.send(`10-01-server: ${num}->${i++}`)
     }, 5000)
 
@@ -38,8 +34,8 @@ wsServer.on('connection', (wsClient) =>
         num = matches[1]
     })
 
-    wsClient.on('close', () =>
-    {
+    wsClient.on('close', () => {
+        console.log("close")
         clearInterval(interval)
     })
 })
@@ -47,19 +43,16 @@ wsServer.on('connection', (wsClient) =>
 http.createServer(requestsHandler).listen(3000)
 
 
-function requestsHandler(req, res)
-{
+function requestsHandler(req, res) {
     let path = './wsStart.html'
 
-    if (req.method === 'GET')
-    {
+    if (req.method === 'GET') {
 
-        fs.stat(path, (err, stats) =>
-        {
+        fs.stat(path, (err, stats) => {
 
             let file = fs.readFileSync(path)
 
-            res.writeHead(200, {'Content-Type': 'text/html', 'Content-Length': stats.size})
+            res.writeHead(200, { 'Content-Type': 'text/html', 'Content-Length': stats.size })
             res.end(file)
         })
 

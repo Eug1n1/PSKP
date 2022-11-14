@@ -1,14 +1,12 @@
 const ws = require('ws')
-const {json} = require("stream/consumers");
+const { json } = require("stream/consumers");
 
-const server = new ws.Server({port: 4000})
+const server = new ws.Server({ port: 4000 })
 
 let messageIndex = 0
 
-server.on('connection', client =>
-{
-    client.on('message', message =>
-    {
+server.on('connection', client => {
+    client.on('message', message => {
         console.log(message.toString())
 
         let jsonMessage = JSON.parse(message.toString())

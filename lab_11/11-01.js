@@ -9,4 +9,6 @@ server.on('connection', (client) => {
     let file = fs.createWriteStream(`./upload/${Date.now()}.txt`)
 
     duplex.pipe(file)
+
+    console.log("saved")
 })

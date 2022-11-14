@@ -15,8 +15,7 @@ server.event('C')
 rl.prompt();
 rl.on('line', (line) =>
 {
-    let args = line.split(' ')
-    switch (args[0]) {
+    switch (line) {
         case 'A':
             server.emit('A')
             break;

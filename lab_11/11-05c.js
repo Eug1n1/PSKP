@@ -1,4 +1,4 @@
-const {cursorTo} = require("readline");
+const { cursorTo } = require("readline");
 const rpc = require('rpc-websockets').Client
 
 const client = new rpc('ws://localhost:4000/')
@@ -8,7 +8,7 @@ client.on('open', async () => {
     let sumArr = []
 
     sumArr.push(await client.call('square', [3]))
-    sumArr.push(await client.call('square', [5,4]))
+    sumArr.push(await client.call('square', [5, 4]))
     sumArr.push(await client.call('mul', [3, 5, 7, 9, 11, 13]))
 
     console.log(sumArr)
@@ -17,13 +17,15 @@ client.on('open', async () => {
     console.log(sum)
 
     let fib = []
-    await client.login({login: 'smw', password: '777'})
-        .then(async isAuth =>
-        {
-            if (isAuth)
-            {
+    await client.login({ login: 'smw', password: '777' })
+        .then(async isAuth => {
+            if (isAuth) {
                 fib = await client.call('fib', [7])
             }
+        })
+        .catch(_e => {
+            console.log("login error")
+            exit(1)
         })
     console.log(fib)
 
@@ -42,7 +44,6 @@ client.on('open', async () => {
 
 })
 
-client.on('error', (error) =>
-{
+client.on('error', (error) => {
     console.log(error)
 })

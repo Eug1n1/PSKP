@@ -3,38 +3,49 @@ const fs = require('fs')
 
 const path = 'StudentList.json'
 
-function putHandler(req, res, wsServer)
-{
+function putHandler(req, res, wsServer) {
     let urlObject = url.parse(req.url)
 
-    switch (urlObject.pathname)
-    {
+    switch (urlObject.pathname) {
         case '/':
             let data
 
-            req.on('data', data =>
-            {
+            req.on('data', (data) => {
                 let student = JSON.parse(data)
                 let students = JSON.parse(fs.readFileSync(path).toString())
 
-                let index = students.findIndex(x => x.id === student.id)
+                let index = students.findIndex((x) => x.id === student.id)
 
-                if (index !== -1)
-                {
-                    students[index] = student
+                if (index === -1) {
+                    res.writeHead(200)
+                    res.end(
+                        JSON.stringify(
+                            {
+                                error: 2,
+                                message: `there is no student with id: ${idMatch[1]}`,
+                            },
+                            null,
+                            '\t'
+                        )
+                    )
 
-                    res.writeHead(200, {'Content-Type': 'application/json; charset=utf-8'})
-                    res.end(JSON.stringify(student, null, '    '))
-
-                    fs.writeFileSync(path, JSON.stringify(students))
-                    // wsServer.emit('change')
                     return
                 }
+                students[index] = student
 
-                res.writeHead(404)
-                res.end('ERROR')
+                fs.writeFileSync(path, JSON.stringify(students))
+
+                res.writeHead(200, {
+                    'Content-Type': 'application/json; charset=utf-8',
+                })
+                res.end(JSON.stringify(student, null, '\t'))
             })
 
+            return
+
+        default:
+            res.writeHead(404)
+            res.end()
             return
     }
 }
