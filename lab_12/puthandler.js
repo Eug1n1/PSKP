@@ -22,7 +22,7 @@ function putHandler(req, res, wsServer) {
                         JSON.stringify(
                             {
                                 error: 2,
-                                message: `there is no student with id: ${idMatch[1]}`,
+                                message: `there is no student with id: ${index}`,
                             },
                             null,
                             '\t'

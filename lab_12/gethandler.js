@@ -69,7 +69,7 @@ function getHandler(req, res) {
                 return
             }
 
-            res.writeHead(400)
+            res.writeHead(404)
             res.end('ERROR')
             return
     }
