@@ -19,8 +19,6 @@ int main(int argc, char const* argv[])
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(PORT);
 
-    // Convert IPv4 and IPv6 addresses from text to binary
-    // form
     if (inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr) <= 0) {
         printf("\nInvalid address/ Address not supported \n");
         return -1;
@@ -37,7 +35,7 @@ int main(int argc, char const* argv[])
         printf("RECV: %s\n", buffer);
         sleep(1);
     }
-    // closing the connected socket
+
     close(client_fd);
     return 0;
 }
