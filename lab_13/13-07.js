@@ -6,7 +6,6 @@ net.createServer((socket) => {
         socket.write(`ECHO: ${data}`)
     })
 }).listen(40000)
-console.log(123)
 
 net.createServer((socket) => {
     socket.on('data', (data) => {
