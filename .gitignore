@@ -2,3 +2,4 @@ node_modules/
 .idea/
 build/
 ./lab_12/*_StudentList.json
+.env
