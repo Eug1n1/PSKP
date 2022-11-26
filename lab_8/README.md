@@ -28,7 +28,7 @@ ASCII) данными методом POST протокола HTTP.
 #### Как с помощью тега `<form>`, обеспечить значение `Multipart/form-data`
 
 ```html
-<form enctyp="multipart/form-data">
+<form enctype="multipart/form-data">
 ...
 </form>
 ```
