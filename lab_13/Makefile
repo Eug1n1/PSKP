@@ -32,3 +32,5 @@ udp_client.c:
 .PHONY: clean
 clean:
 	rm -r $(BUILD_DIR)
+
+rebuild: clean all
