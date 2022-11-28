@@ -1,33 +1,43 @@
 const http = require('http')
 
-const { getHandler} = require('./getHandler')
-const { postHandler} = require('./postHandler')
-const { putHandler} = require('./putHandler')
-const { deleteHandler} = require('./deleteHandler')
+const { getHandler } = require('./getHandler')
+const { postHandler } = require('./postHandler')
+const { putHandler } = require('./putHandler')
+const { deleteHandler } = require('./deleteHandler')
 
 const DB = require('./DB')
 const Db = new DB()
 
+http.createServer((request, response) => {
+    console.log(request.method)
 
-http.createServer((req, res) => {
-    console.log(req.method)
-    switch (req.method) {
+    response.setHeader('Access-Control-Allow-Origin', '*')
+
+    switch (request.method) {
         case 'GET':
-            getHandler(req, res, Db)
+            getHandler(request, response, Db)
             break
         case 'POST':
-            postHandler(req, res, Db)
+            postHandler(request, response, Db)
             break
         case 'PUT':
-            putHandler(req, res, Db)
+            putHandler(request, response, Db)
             break
         case 'DELETE':
-            deleteHandler(req, res, Db)
+            deleteHandler(request, response, Db)
             break
         default:
-            res.statusCode = 400
-            res.statusMessage = 'Invalid method'
-            res.end('<h1>error</h1></br>' + '<h3>' + error + '</h3>')
+            write_error_400(response, 'Invalid method')
             break
     }
 }).listen(3000)
+
+function write_error_400(response, error) {
+    response.statusCode = 400
+    response.statusMessage = 'Invalid method'
+    response.end(
+        JSON.stringify({
+            error: error,
+        })
+    )
+}

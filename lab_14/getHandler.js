@@ -1,74 +1,86 @@
 const fs = require('fs')
 const url = require('url')
-const pathStatic = './static/lab14.html'
+const pathStatic = './index.html'
 
-module.exports.getHandler = (req, res, Db) => {
+module.exports.getHandler = (request, response, Db) => {
     let Urn = url.parse(request.url).pathname
     let path_mas = Urn.split('/')
 
     switch (path_mas[2]) {
-        case '/':
-            fs.access(pathStatic, fs.constants.R_OK, (err) => {
-                if (err) this.writeHTTP404(res)
-                else
-                    pipeFile(res, {
-                        'Content-Type': 'text/html; charset=utf-8',
-                    })
+        case undefined:
+            fs.readFile('./index.html', (err, data) => {
+                if (err) {
+                    throw err
+                }
+                response.writeHead(200, {
+                    'Content-Type': 'text/html; charset=utf-8',
+                })
+                response.end(data)
             })
+            // fs.access(pathStatic, fs.constants.R_OK, (err) => {
+            //     if (err) {
+            //         this.writeHTTP404(response)
+            //         return
+            //     }
+
+            //     pipeFile(response, {
+            //         'Content-Type': 'text/html; charset=utf-8',
+            //     })
+            // })
             break
         case 'faculties':
-            Db.get_faculties()
+            Db.getFaculties()
                 .then((records) => {
-                    res.statusCode = 200
-                    res.setHeader('Content-Type', 'application/json')
-                    res.end(JSON.stringify(records.recordset))
+                    response.statusCode = 200
+                    response.setHeader('Content-Type', 'application/json')
+                    response.end(JSON.stringify(records.recordset))
                 })
                 .catch((error) => {
-                    write_error_400(res, error)
+                    write_error_400(response, error)
                 })
             break
         case 'pulpits':
-            Db.get_pulpits()
+            Db.getPulpits()
                 .then((records) => {
-                    res.statusCode = 200
-                    res.setHeader('Content-Type', 'application/json')
-                    res.end(JSON.stringify(records.recordset))
+                    response.statusCode = 200
+                    response.setHeader('Content-Type', 'application/json')
+                    response.end(JSON.stringify(records.recordset))
                 })
                 .catch((error) => {
-                    write_error_400(res, error)
+                    write_error_400(response, error)
                 })
             break
         case 'subjects':
-            Db.get_subjects()
+            Db.getSubjects()
                 .then((records) => {
-                    res.statusCode = 200
-                    res.setHeader('Content-Type', 'application/json')
-                    res.end(JSON.stringify(records.recordset))
+                    response.statusCode = 200
+                    response.setHeader('Content-Type', 'application/json')
+                    response.end(JSON.stringify(records.recordset))
                 })
                 .catch((error) => {
-                    write_error_400(res, error)
+                    write_error_400(response, error)
                 })
             break
         case 'auditoriumstypes':
-            Db.get_auditoriums_types()
+            Db.getAuditoriumTypes()
                 .then((records) => {
-                    res.statusCode = 200
-                    res.setHeader('Content-Type', 'application/json')
-                    res.end(JSON.stringify(records.recordset))
+                    response.statusCode = 200
+                    response.setHeader('Content-Type', 'application/json')
+                    response.end(JSON.stringify(records.recordset))
                 })
                 .catch((error) => {
-                    write_error_400(res, error)
+                    write_error_400(response, error)
                 })
             break
         case 'auditorims':
-            Db.get_auditorims()
+            Db.getAuditoriums()
                 .then((records) => {
-                    res.statusCode = 200
-                    res.setHeader('Content-Type', 'application/json')
-                    res.end(JSON.stringify(records.recordset))
+                    response.statusCode = 200
+                    response.setHeader('Content-Type', 'application/json')
+                    response.end(JSON.stringify(records.recordset))
                 })
                 .catch((error) => {
-                    write_error_400(res, error)
+                    write_error_400(response, error)
                 })
             break
         default:
@@ -76,37 +88,37 @@ module.exports.getHandler = (req, res, Db) => {
             let auditoriumtypesAuditoriumsRegex =
                 /\/api\/auditoriumtypes\/(\w+)\/auditoriums/
 
-            let match = auditoriumtypesAuditoriumsRegex.exec(path)
+            let match = auditoriumtypesAuditoriumsRegex.exec(Urn)
             if (match) {
                 Db.getAuditoriumByType(match[1])
                     .then((records) => {
-                        res.statusCode = 200
-                        res.setHeader('Content-Type', 'application/json')
-                        res.end(JSON.stringify(records.recordset))
+                        response.statusCode = 200
+                        response.setHeader('Content-Type', 'application/json')
+                        response.end(JSON.stringify(records.recordset))
                     })
                     .catch((error) => {
-                        write_error_400(res, error)
+                        write_error_400(response, error)
                     })
 
-                return
+                break
             }
 
-            match = facultyPulpitsRegex.exec(path)
+            match = facultyPulpitsRegex.exec(Urn)
             if (match) {
-                Db.getFacultyPulpits(match[1])
+                Db.getPulpitsByFaculty(match[1])
                     .then((records) => {
-                        res.statusCode = 200
-                        res.setHeader('Content-Type', 'application/json')
-                        res.end(JSON.stringify(records.recordset))
+                        response.statusCode = 200
+                        response.setHeader('Content-Type', 'application/json')
+                        response.end(JSON.stringify(records.recordset))
                     })
                     .catch((error) => {
-                        write_error_400(res, error)
+                        write_error_400(response, error)
                     })
 
-                return
+                break
             }
 
-            write_error_400(res, 'Invalid method')
+            write_error_400(response, 'Invalid method')
             break
     }
 }
@@ -119,5 +131,9 @@ let pipeFile = (response, headers) => {
 function write_error_400(response, error) {
     response.statusCode = 400
     response.statusMessage = 'Invalid method'
-    response.end('<h1>error</h1></br>' + '<h3>' + error + '</h3>')
+    response.end(
+        JSON.stringify({
+            error: error,
+        })
+    )
 }

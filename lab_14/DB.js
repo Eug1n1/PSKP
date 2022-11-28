@@ -26,13 +26,13 @@ class DataBase {
             .catch((err) => console.log('Connection Failed: ', err))
     }
 
-    get_faculties() {
+    async getFaculties() {
         return this.connectionPool.then((pool) =>
             pool.request().query('Select * FROM FACULTY')
         )
     }
 
-    getFacultyPulpits(faculty) {
+    async getPulpitsByFaculty(faculty) {
         return this.connectionPool.then((pool) =>
             pool
                 .request()
@@ -41,25 +41,25 @@ class DataBase {
         )
     }
 
-    get_pulpits() {
+    async getPulpits() {
         return this.connectionPool.then((pool) =>
             pool.request().query('Select * FROM PULPIT')
         )
     }
 
-    get_subjects() {
+    async getSubjects() {
         return this.connectionPool.then((pool) =>
             pool.request().query('Select * FROM SUBJECT')
         )
     }
 
-    get_auditoriums_types() {
+    async getAuditoriumTypes() {
         return this.connectionPool.then((pool) =>
             pool.request().query('Select * FROM AUDITORIUM_TYPE')
         )
     }
 
-    get_auditorium_type(type) {
+    async getAuditoriumType(type) {
         return this.connectionPool.then((pool) =>
             pool
                 .request()
@@ -70,13 +70,13 @@ class DataBase {
         )
     }
 
-    get_auditorims() {
+    async getAuditoriums() {
         return this.connectionPool.then((pool) =>
             pool.request().query('Select * FROM AUDITORIUM')
         )
     }
 
-    getAuditoriumByType(type) {
+    async getAuditoriumByType(type) {
         return this.connectionPool.then((pool) =>
             pool
                 .request()
@@ -85,7 +85,7 @@ class DataBase {
         )
     }
 
-    get_pulpit(pulpit) {
+    async getPulpit(pulpit) {
         return this.connectionPool.then((pool) => {
             return pool
                 .request()
@@ -94,7 +94,7 @@ class DataBase {
         })
     }
 
-    get_faculty(faculty) {
+    async getFaculty(faculty) {
         return this.connectionPool.then((pool) => {
             return pool
                 .request()
@@ -103,7 +103,7 @@ class DataBase {
         })
     }
 
-    get_subject(subject) {
+    async getSubject(subject) {
         return this.connectionPool.then((pool) => {
             return pool
                 .request()
@@ -111,7 +111,7 @@ class DataBase {
                 .query('Select * from Subject where subject = @sub')
         })
     }
-    get_auditorim(audit) {
+    async getAuditorium(audit) {
         return this.connectionPool.then((pool) => {
             return pool
                 .request()
@@ -120,7 +120,7 @@ class DataBase {
         })
     }
 
-    post_faculties(faculty, faculty_name) {
+    async postFaculty(faculty, faculty_name) {
         return this.connectionPool.then((pool) => {
             return pool
                 .request()
@@ -132,7 +132,7 @@ class DataBase {
         })
     }
 
-    post_pulpits(pulpit, pulpit_name, faculty) {
+    async postPulpit(pulpit, pulpit_name, faculty) {
         return this.connectionPool.then((pool) => {
             return pool
                 .request()
@@ -145,7 +145,7 @@ class DataBase {
         })
     }
 
-    post_subjects(subject, subject_name, pulpit) {
+    async postSubject(subject, subject_name, pulpit) {
         return this.connectionPool.then((pool) => {
             return pool
                 .request()
@@ -158,7 +158,7 @@ class DataBase {
         })
     }
 
-    post_auditoriums_types(auditorium_type, auditorium_typename) {
+    async postAuditoriumType(auditorium_type, auditorium_typename) {
         return this.connectionPool.then((pool) => {
             return pool
                 .request()
@@ -170,7 +170,7 @@ class DataBase {
         })
     }
 
-    post_auditoriums(
+    async postAuditorium(
         auditorium,
         auditorium_name,
         auditorium_capacity,
@@ -190,7 +190,7 @@ class DataBase {
         })
     }
 
-    put_faculties(faculty, faculty_name) {
+    async putFaculty(faculty, faculty_name) {
         return this.connectionPool.then((pool) => {
             return pool
                 .request()
@@ -202,7 +202,7 @@ class DataBase {
         })
     }
 
-    put_pulpits(pulpit, pulpit_name, faculty) {
+    async putPulpit(pulpit, pulpit_name, faculty) {
         return this.connectionPool.then((pool) => {
             return pool
                 .request()
@@ -215,7 +215,7 @@ class DataBase {
         })
     }
 
-    put_subjects(subject, subject_name, pulpit) {
+    async putSubject(subject, subject_name, pulpit) {
         return this.connectionPool.then((pool) => {
             return pool
                 .request()
@@ -228,7 +228,7 @@ class DataBase {
         })
     }
 
-    put_auditoriums_types(auditorium_type, auditorium_typename) {
+    async putAuditoriumType(auditorium_type, auditorium_typename) {
         return this.connectionPool.then((pool) => {
             return pool
                 .request()
@@ -240,7 +240,7 @@ class DataBase {
         })
     }
 
-    put_auditoriums(
+    async putAuditorium(
         auditorium,
         auditorium_name,
         auditorium_capacity,
@@ -260,7 +260,7 @@ class DataBase {
         })
     }
 
-    delete_faculties(faculty) {
+    async deleteFaculty(faculty) {
         return this.connectionPool.then((pool) => {
             return pool
                 .request()
@@ -269,7 +269,7 @@ class DataBase {
         })
     }
 
-    delete_pulpits(pulpit) {
+    async deletePulpit(pulpit) {
         return this.connectionPool.then((pool) => {
             return pool
                 .request()
@@ -278,7 +278,7 @@ class DataBase {
         })
     }
 
-    delete_subjects(subject) {
+    async deleteSubject(subject) {
         return this.connectionPool.then((pool) => {
             return pool
                 .request()
@@ -287,7 +287,7 @@ class DataBase {
         })
     }
 
-    delete_auditoriums_types(auditorium_type) {
+    async deleteAuditoriumType(auditorium_type) {
         return this.connectionPool.then((pool) => {
             return pool
                 .request()
@@ -298,7 +298,7 @@ class DataBase {
         })
     }
 
-    delete_auditoriums(auditorium) {
+    async deleteAuditorium(auditorium) {
         return this.connectionPool.then((pool) => {
             return pool
                 .request()

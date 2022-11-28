@@ -14,13 +14,13 @@ module.exports.putHandler = (request, response, Db) => {
             request.on('end', () => {
                 data = JSON.parse(data)
                 response.writeHead(200, { 'Content-Type': 'application/json' })
-                Db.get_faculty(data.faculty)
+                Db.getFaculty(data.faculty)
                     .then((records) => {
                         if (records.recordset.length == 0) {
                             throw 'No such faculty'
                         }
 
-                        Db.put_faculties(data.faculty, data.faculty_name)
+                        Db.putFaculty(data.faculty, data.faculty_name)
                             .then((_) => {
                                 response.end(JSON.stringify(data))
                             })
@@ -42,13 +42,13 @@ module.exports.putHandler = (request, response, Db) => {
                 data = JSON.parse(data)
                 response.writeHead(200, { 'Content-Type': 'application/json' })
 
-                Db.get_pulpit(data.pulpit)
+                Db.getPulpit(data.pulpit)
                     .then((records) => {
                         if (records.recordset.length == 0) {
                             throw 'No such pulpit'
                         }
 
-                        Db.put_pulpits(
+                        Db.putPulpit(
                             data.pulpit,
                             data.pulpit_name,
                             data.faculty
@@ -73,13 +73,13 @@ module.exports.putHandler = (request, response, Db) => {
                 data = JSON.parse(data)
                 response.writeHead(200, { 'Content-Type': 'application/json' })
 
-                Db.get_subject(data.subject)
+                Db.getSubject(data.subject)
                     .then((records) => {
                         if (records.recordset.length == 0) {
                             throw 'No such subject'
                         }
 
-                        Db.put_subjects(
+                        Db.putSubject(
                             data.subject,
                             data.subject_name,
                             data.pulpit
@@ -104,13 +104,13 @@ module.exports.putHandler = (request, response, Db) => {
                 data = JSON.parse(data)
                 response.writeHead(200, { 'Content-Type': 'application/json' })
 
-                Db.get_auditorium_type(data.auditorium_type)
+                Db.getAuditoriumType(data.auditorium_type)
                     .then((records) => {
                         if (records.recordset.length == 0) {
                             throw 'no such auditorium_type'
                         }
 
-                        Db.put_auditoriums_types(
+                        Db.putAuditoriumType(
                             data.auditorium_type,
                             data.auditorium_typename
                         )
@@ -134,13 +134,13 @@ module.exports.putHandler = (request, response, Db) => {
                 data = JSON.parse(data)
                 response.writeHead(200, { 'Content-Type': 'application/json' })
 
-                Db.get_auditorim(data.auditorium)
+                Db.getAuditorium(data.auditorium)
                     .then((records) => {
                         if (records.recordset.length == 0) {
                             throw 'No such auditorium'
                         }
 
-                        Db.put_auditoriums(
+                        Db.putAuditorium(
                             data.auditorium,
                             data.auditorium_name,
                             data.auditorium_capacity,
@@ -167,5 +167,7 @@ module.exports.putHandler = (request, response, Db) => {
 function write_error_400(response, error) {
     response.statusCode = 400
     response.statusMessage = 'Invalid method'
-    response.end('<h1>error</h1></br>' + '<h3>' + error + '</h3>')
+    response.end(JSON.stringify({
+        error: error
+    }))
 }
