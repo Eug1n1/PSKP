@@ -128,6 +128,6 @@ function write_error_400(response, error) {
     response.statuscode = 400
     response.statusmessage = 'invalid method'
     response.end(JSON.stringify({
-        error: error
+        error: error.message
     }))
 }

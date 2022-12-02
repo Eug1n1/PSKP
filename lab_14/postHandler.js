@@ -22,7 +22,7 @@ module.exports.postHandler = (request, response, Db) => {
                         response.end(JSON.stringify(data))
                     })
                     .catch((error) => {
-                        write_error_400(response, error.message)
+                        write_error_400(response, error)
                     })
             })
             break
@@ -39,7 +39,7 @@ module.exports.postHandler = (request, response, Db) => {
                         response.end(JSON.stringify(data))
                     })
                     .catch((error) => {
-                        write_error_400(response, error.message)
+                        write_error_400(response, error)
                     })
             })
             break
@@ -56,7 +56,7 @@ module.exports.postHandler = (request, response, Db) => {
                         response.end(JSON.stringify(data))
                     })
                     .catch((error) => {
-                        write_error_400(response, error.message)
+                        write_error_400(response, error)
                     })
             })
             break
@@ -76,7 +76,7 @@ module.exports.postHandler = (request, response, Db) => {
                         response.end(JSON.stringify(data))
                     })
                     .catch((error) => {
-                        write_error_400(response, error.message)
+                        write_error_400(response, error)
                     })
             })
             break
@@ -98,7 +98,7 @@ module.exports.postHandler = (request, response, Db) => {
                         response.end(JSON.stringify(data))
                     })
                     .catch((error) => {
-                        write_error_400(response, error.message)
+                        write_error_400(response, error)
                     })
             })
             break
@@ -112,6 +112,6 @@ function write_error_400(response, error) {
     response.statusCode = 400
     response.statusMessage = 'Invalid method'
     response.end(JSON.stringify({
-        error: error
+        error: error.message
     }))
 }
