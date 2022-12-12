@@ -27,14 +27,10 @@ class DB {
         })
     }
 
-    async GetFaculty(faculty) {
-        return this.client
-            .then((db) => {
-                return db.collection('faculty').findOne(faculty)
-            })
-            .then((record) => {
-                return record
-            })
+    async GetFaculty(filter) {
+        return this.client.then(async (db) => {
+            return await db.collection('faculty').findOne(filter)
+        })
     }
 
     async GetFaculties(filter) {
@@ -44,18 +40,14 @@ class DB {
         })
     }
 
-    async GetPulpit(pulpit) {
-        return this.client
-            .then((db) => {
-                return db.collection('pulpit').findOne(pulpit)
-            })
-            .then((record) => {
-                return record
-            })
+    async GetPulpit(filter) {
+        return this.client.then(async (db) => {
+            return await db.collection('pulpit').findOne(filter)
+        })
     }
 
     async GetPulpits(filter) {
-        return this.client.then(async db => {
+        return this.client.then(async (db) => {
             return await db.collection('pulpit').find(filter).toArray()
         })
     }
@@ -66,7 +58,7 @@ class DB {
             let pulpits = []
 
             for (let faculty of faculties) {
-                pulpits.push(...await this.GetPulpits({ faculty: faculty }))
+                pulpits.push(...(await this.GetPulpits({ faculty: faculty })))
             }
 
             return pulpits
@@ -75,10 +67,13 @@ class DB {
 
     async InsertFaculty(data) {
         return this.client.then(async (db) => {
-            let faculty = await this.GetFaculty(data)
+            let faculty = await this.GetFaculty({ faculty: data.faculty })
+
             if (faculty) {
                 throw {
-                    error: `faculty ${JSON.stringify(data)} already exists`,
+                    error: `faculty ${JSON.stringify(
+                        data.faculty
+                    )} already exists`,
                 }
             }
 
@@ -90,26 +85,148 @@ class DB {
                     }
                 })
 
+            console.log(data)
             return await this.GetFaculty(data)
         })
     }
 
-    async UpdateFaculty(data) {
+    async InsertPulpit(data) {
         return this.client.then(async (db) => {
             console.log(data)
-            let oldRecord = await this.GetFaculty({ faculty: data.faculty })
+            let pulpit = await this.GetPulpit({ pulpit: data.pulpit })
 
-            if (!oldRecord) {
+            if (pulpit) {
+                throw {
+                    error: `pulpit ${data.pulpit} already exists`,
+                }
+            }
+
+            db.collection('pulpit')
+                .insertOne(data)
+                .catch((e) => {
+                    throw {
+                        error: e.message,
+                    }
+                })
+
+            console.log(data)
+            return await this.GetPulpit(data)
+        })
+    }
+
+    async InsertPulpits(data, transactionOptions) {
+        let client = new MongoClient(this.url)
+        await client.connect()
+        let collection = client.db('BSTU').collection('pulpit')
+        let session = client.startSession()
+
+        try {
+            session.startTransaction(transactionOptions)
+
+            console.log(data)
+            for (let pulpit of data) {
+                if (
+                    await collection.findOne(
+                        { pulpit: pulpit.pulpit },
+                        { session }
+                    )
+                ) {
+                    throw {
+                        error: `pulpit ${pulpit.pulpit} already exists`,
+                    }
+                }
+
+                await collection.insertOne(pulpit, { session })
+
+                console.log(`inserted ${pulpit.pulpit}`)
+            }
+
+            await session.commitTransaction()
+        } catch (e) {
+            await session.abortTransaction()
+            console.log(e)
+        } finally {
+            await session.endSession()
+        }
+
+        return data
+    }
+
+    async UpdateFaculty(data) {
+        return this.client.then(async (db) => {
+            let faculty = await this.GetFaculty({ faculty: data.faculty })
+
+            if (!faculty) {
                 throw {
                     error: `faculty ${data.faculty} does not exists`,
                 }
             }
-            delete oldRecord._id
-            console.log(oldRecord)
 
-            await db.collection('faculty').updateOne(oldRecord, { $set: data })
+            await db
+                .collection('faculty')
+                .updateOne(faculty, { $set: data })
+                .catch((e) => {
+                    throw {
+                        error: e.message,
+                    }
+                })
 
             return await this.GetFaculty(data)
+        })
+    }
+
+    async UpdatePulpit(data) {
+        return this.client.then(async (db) => {
+            let pulpit = await this.GetPulpit({ pulpit: data.pulpit })
+
+            if (!pulpit) {
+                throw {
+                    error: `faculty ${data.faculty} does not exists`,
+                }
+            }
+
+            await db
+                .collection('pulpit')
+                .updateOne(pulpit, { $set: data })
+                .catch((e) => {
+                    throw {
+                        error: e.message,
+                    }
+                })
+
+            return await this.GetPulpit(data)
+        })
+    }
+
+    async DeleteFaculty(data) {
+        return this.client.then(async (db) => {
+            let faculty = await this.GetFaculty({ faculty: data.faculty })
+
+            if (!faculty) {
+                throw {
+                    error: `faculty ${data.faculty} does not exists`,
+                }
+            }
+
+            await db.collection('faculty').deleteOne(faculty)
+
+            return faculty
+        })
+    }
+
+    async DeletePulpit(data) {
+        return this.client.then(async (db) => {
+            let pulpit = await this.GetPulpit({ pulpit: data.pulpit })
+
+            if (!pulpit) {
+                throw {
+                    error: `pulpit ${data.pulpit} does not exists`,
+                }
+            }
+
+            await db.collection('pulpit').deleteOne(pulpit)
+
+            return pulpit
         })
     }
 }
