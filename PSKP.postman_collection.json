@@ -1,0 +1,1713 @@
+{
+	"info": {
+		"_postman_id": "3cf725ee-16d7-4298-abf6-9c52fc7143b2",
+		"name": "PSKP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15642082"
+	},
+	"item": [
+		{
+			"name": "lab_1",
+			"item": [
+				{
+					"name": "01-02",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "01-03-1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "01-03-2",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "sdfnksdnofndsnfondsnflknsdlkf"
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "lab_2",
+			"item": [
+				{
+					"name": "02-01",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/html",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"html"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "02-02",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/png",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"png"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "02-03",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/name",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"name"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "02-04",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/xmlhttprequest",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"xmlhttprequest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "02-05",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/fetch",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"fetch"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "02-06",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/jquery",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"jquery"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "lab_8",
+			"item": [
+				{
+					"name": "headers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/headers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"headers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "parameter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/parameter?x=2&y=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"parameter"
+							],
+							"query": [
+								{
+									"key": "x",
+									"value": "2"
+								},
+								{
+									"key": "y",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resp-status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/resp-status?code=203&mess=vse OK!sadfhjakshdf",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"resp-status"
+							],
+							"query": [
+								{
+									"key": "code",
+									"value": "203"
+								},
+								{
+									"key": "mess",
+									"value": "vse OK!sadfhjakshdf"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "req-data",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "file",
+							"file": {
+								"src": "/home/eug1n1/Downloads/spring-boot.zip"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/req-data",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"req-data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "json",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"__comment\": \"\",\n    \"x\": 1,\n    \"y\": 2,\n    \"message\": \"message\",\n    \"array\": [\"a\", \"b\", \"c\", \"d\"],\n    \"credentials\": {\n        \"surname\": \"Ivanov\", \n        \"name\": \"Ivan\"\n        }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/json",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"json"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "xml",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<request id=\"28\">\n    <x value=\"1\"/>\n    <x value=\"2\"/>\n    <m value=\"a\"/>\n    <m value=\"b\"/>\n    <m value=\"c\"/>\n</request>",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/xml",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"xml"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "files",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/files",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"files"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "parameter_2",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/parameter/1/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"parameter",
+								"1",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "close",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/close",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"close"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "socket",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/socket",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"socket"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "connection",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/connection",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"connection"
+							],
+							"query": [
+								{
+									"key": "set",
+									"value": "20000",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set_connection",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/connection?set=20000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"connection"
+							],
+							"query": [
+								{
+									"key": "set",
+									"value": "20000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "parameter_url",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/parameter/1/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"parameter",
+								"1",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "files_filename",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/files/ttf.txt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"files",
+								"ttf.txt"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "lab_4",
+			"item": [
+				{
+					"name": "post_req",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n    \"id\": 1,\n    \"name\": \"knvklnvlkdnvkld\",\n    \"bday\": \"2001-01-01\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/db",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"db"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_req",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/db",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"db"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_req",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\n    \"id\": 11,\n    \"name\": \"aboba\",\n    \"bday\": \"2001-01-01\"\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/db",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"db"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_req",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/db?id=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"db"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "lab_12",
+			"item": [
+				{
+					"name": "post_student",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"id\": 33,\r\n        \"name\": \"Chistyakov N.A.\",\r\n        \"birth\": \"10-07-2011\",\r\n        \"speciality\": \"POIT\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_student",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 39,\n    \"name\": \"Каспер Н.В.\",\n    \"birth\": \"10-10-2000\",\n    \"speciality\": \"неПОИТ\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_student",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/39",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"39"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_backup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/backup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"backup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_backup",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/backup/20221115",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"backup",
+								"20221115"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_students",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_backup",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/backup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"backup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_student",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/38",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"38"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "lab_14",
+			"item": [
+				{
+					"name": "get_faculties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/faculties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_faculty_pulpits",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/faculty/FOF/pulpits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculty",
+								"FOF",
+								"pulpits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_pulpits",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/pulpits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_auditoriumstypes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriumstypes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriumstypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_auditoriumtypes_auditorium",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriumtypes/LEWC/auditoriums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriumtypes",
+								"LEWC",
+								"auditoriums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_auditoriums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/auditorims",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditorims"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_subjects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/subjects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"subjects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_auditoriums",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auditorims/444888",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditorims",
+								"444888"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_auditoriumstypes",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriumstypes/MyType",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriumstypes",
+								"MyType"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_subjects",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/subjects/subject",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"subjects",
+								"subject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_pulpits",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/pulpits/pulpit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpits",
+								"pulpit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_faculties",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/faculties/FOF",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties",
+								"FOF"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_auditoriums",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"auditorium\": \"444888\",\n    \"auditorium_name\": \"4448988\",\n    \"auditorium_capacity\": 120,\n    \"auditorium_type\": \"MyType\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auditorims",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditorims"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_auditoriumstypes",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"auditorium_type\": \"MyType\",\n    \"auditorium_typename\": \"mine auditorium_type\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriumstypes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriumstypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_subjects",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"subject\": \"subject\",\n    \"subject_name\": \"mine subject\",\n    \"pulpit\": \"pulpit\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/subjects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"subjects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_pulpits",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pulpit\": \"pulpit\",\n    \"pulpit_name\": \"mine pulpit\",\n    \"faculty\": \"faculty\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/pulpits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_faculties",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"faculty\": \"faculty\",\n    \"faculty_name\": \"mine faculty\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/faculties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_pulpits",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pulpit\": \"pulpit\",\n    \"pulpit_name\": \"my pulpit\",\n    \"faculty\": \"faculty\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/pulpits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_subjects",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"subject\": \"subject\",\n    \"subject_name\": \"my subject\",\n    \"pulpit\": \"pulpit\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/subjects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"subjects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_auditoriumstypes",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"auditorium_type\": \"MyType\",\n    \"auditorium_typename\": \"my auditorium_type\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriumstypes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriumstypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_auditoriums",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"auditorium\": \"444888\",\n    \"auditorium_name\": \"444888\",\n    \"auditorium_capacity\": 90,\n    \"auditorium_type\": \"MyType\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auditorims",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditorims"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_faculties",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"faculty\": \"faculty\",\n    \"faculty_name\": \"my faculty\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/faculties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "lab_15",
+			"item": [
+				{
+					"name": "post_faculty",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"faculty\": \"LLFLF\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/faculties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_pulpit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pulpit\": \"KUUUUDU\",\n    \"pulpit_name\": \"Kiber Sport\",\n    \"faculty\": \"ИТ\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/pulpits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transaction",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"pulpit\": \"KE\",\n        \"pulpit_name\": \"Kiber Sport\",\n        \"faculty\": \"ИТ\"\n    },\n    {\n        \"pulpit\": \"KEE\",\n        \"pulpit_name\": \"Kiber Sport\",\n        \"faculty\": \"ИТ\"\n    },\n    {\n        \"pulpit\": \"KEEE\",\n        \"pulpit_name\": \"Kiber Sport\",\n        \"faculty\": \"ИТ\"\n    },\n    {\n        \"pulpit\": \"KEEEE\",\n        \"pulpit_name\": \"Kiber Sport\",\n        \"faculty\": \"ИТ\"\n    }\n]\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/transaction",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_faculty",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"faculty\": \"LL\",\n    \"faculty_name\": \"Инженернaaab-о\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/faculties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_pulpit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pulpit\": \"KU\",\n    \"pulpit_name\": \"Kuber Uber\",\n    \"faculty\": \"ИТ\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/pulpits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_faculty",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/faculties/LLFL",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties",
+								"LLFL"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_pulpit",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/pulpits/KUU",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpits",
+								"KUU"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_faculties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/faculties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_faculty",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/faculties/LL",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties",
+								"LL"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_pulpit",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/pulpits/KU",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpits",
+								"KU"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_pulpits",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/pulpits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_faculty_pulpits",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/pulpits?f=LL",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpits"
+							],
+							"query": [
+								{
+									"key": "f",
+									"value": "LL"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
