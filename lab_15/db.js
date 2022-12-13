@@ -15,45 +15,119 @@ class DB {
             .catch((e) => console.log(e))
     }
 
-    async GetRecordsFromCollection(collectionName) {
-        return this.client.then(async (db) => {
-            return await db.collection(collectionName).find({}).toArray()
-        })
+    // async GetRecordsFromCollection(collectionName) {
+    //     return this.client.then(async (db) => {
+    //         return await db.collection(collectionName).find({}).toArray()
+    //     })
+    // }
+
+    // async GetRecords(collection, filter) {
+    //     return this.client.then(async (db) => {
+    //         return await db.collection(collection).find(filter)
+    //     })
+    // }
+
+    // async GetFaculty(filter) {
+    //     return this.client.then(async (db) => {
+    //         return await db.collection('faculty').findOne(filter)
+    //     })
+    // }
+
+    // async GetPulpit(filter) {
+    //     return this.client.then(async (db) => {
+    //         return await db.collection('pulpit').findOne(filter)
+    //     })
+    // }
+
+    // async GetFaculties(filter) {
+    //     return this.client.then(async (db) => {
+    //         const t = await db.collection('faculty').find(filter).toArray()
+    //         return t
+    //     })
+    // }
+
+    // async GetPulpits(filter) {
+    //     return this.client.then(async (db) => {
+    //         return await db.collection('pulpit').find(filter).toArray()
+    //     })
+    // }
+
+    // async GetPulpitsByFaculties(faculties) {
+    //     return this.client.then(async (db) => {
+    //         faculties = faculties.split(',')
+    //         let pulpits = []
+
+    //         for (let faculty of faculties) {
+    //             pulpits.push(...(await this.GetPulpits({ faculty: faculty })))
+    //         }
+
+    //         return pulpits
+    //     })
+    // }
+
+    async GetAllRecordsFromCollection(collection) {
+        try {
+            let db = await this.client
+
+            return await db.collection(collection).find({}).toArray()
+ 
+        } catch (e) {
+            return e
+        }
     }
 
     async GetRecords(collection, filter) {
-        return this.client.then(async (db) => {
-            return await db.collection(collection).find(filter)
-        })
+        try {
+            let db = await this.client
+
+            return await db.collection(collection).findOne(filter)
+        } catch (e) {
+            return e
+        }
     }
 
     async GetFaculty(filter) {
-        return this.client.then(async (db) => {
+        try {
+            let db = await this.client
+
             return await db.collection('faculty').findOne(filter)
-        })
+        } catch (e) {
+            return e
+        }
     }
 
     async GetFaculties(filter) {
-        return this.client.then(async (db) => {
-            const t = await db.collection('faculty').find(filter).toArray()
-            return t
-        })
+        try {
+            let db = await this.client
+
+            return await db.collection('faculty').find(filter).toArray()
+        } catch (e) {
+            return e
+        }
     }
 
     async GetPulpit(filter) {
-        return this.client.then(async (db) => {
+        try {
+            let db = await this.client
+
             return await db.collection('pulpit').findOne(filter)
-        })
+        } catch (e) {
+            return e
+        }
     }
 
     async GetPulpits(filter) {
-        return this.client.then(async (db) => {
+        try {
+            let db = await this.client
+
             return await db.collection('pulpit').find(filter).toArray()
-        })
+        } catch (e) {
+            return e
+        }
     }
 
     async GetPulpitsByFaculties(faculties) {
-        return this.client.then(async (db) => {
+        try {
             faculties = faculties.split(',')
             let pulpits = []
 
@@ -62,12 +136,70 @@ class DB {
             }
 
             return pulpits
-        })
+        } catch (e) {
+            return e
+        }
     }
 
+    // async InsertFaculty(data) {
+    //     return this.client
+    //         .then(async (db) => {
+    //             let faculty = await this.GetFaculty({ faculty: data?.faculty })
+
+    //             if (faculty) {
+    //                 throw {
+    //                     error: `faculty ${JSON.stringify(
+    //                         data.faculty
+    //                     )} already exists`,
+    //                 }
+    //             }
+
+    //             db.collection('faculty')
+    //                 .insertOne(data)
+    //                 .catch((e) => {
+    //                     console.log({
+    //                         error: e.message,
+    //                     })
+    //                 })
+
+    //             return await this.GetFaculty(data)
+    //         })
+    //         .catch((e) => {
+    //             throw {
+    //                 error: e.message,
+    //             }
+    //         })
+    // }
+
+    // async InsertPulpit(data) {
+    //     return this.client.then(async (db) => {
+    //         console.log(data)
+    //         let pulpit = await this.GetPulpit({ pulpit: data.pulpit })
+
+    //         if (pulpit) {
+    //             throw {
+    //                 error: `pulpit ${data.pulpit} already exists`,
+    //             }
+    //         }
+
+    //         db.collection('pulpit')
+    //             .insertOne(data)
+    //             .catch((e) => {
+    //                 throw {
+    //                     error: e.message,
+    //                 }
+    //             })
+
+    //         console.log(data)
+    //         return await this.GetPulpit(data)
+    //     })
+    // }
+
     async InsertFaculty(data) {
-        return this.client.then(async (db) => {
-            let faculty = await this.GetFaculty({ faculty: data.faculty })
+        try {
+            let db = await this.client
+
+            let faculty = await this.GetFaculty({ faculty: data?.faculty })
 
             if (faculty) {
                 throw {
@@ -77,22 +209,18 @@ class DB {
                 }
             }
 
-            db.collection('faculty')
-                .insertOne(data)
-                .catch((e) => {
-                    throw {
-                        error: e.message,
-                    }
-                })
+            await db.collection('faculty').insertOne(data)
 
-            console.log(data)
             return await this.GetFaculty(data)
-        })
+        } catch (e) {
+            return e
+        }
     }
 
     async InsertPulpit(data) {
-        return this.client.then(async (db) => {
-            console.log(data)
+        try {
+            let db = await this.client
+
             let pulpit = await this.GetPulpit({ pulpit: data.pulpit })
 
             if (pulpit) {
@@ -101,17 +229,12 @@ class DB {
                 }
             }
 
-            db.collection('pulpit')
-                .insertOne(data)
-                .catch((e) => {
-                    throw {
-                        error: e.message,
-                    }
-                })
+            await db.collection('pulpit').insertOne(data)
 
-            console.log(data)
             return await this.GetPulpit(data)
-        })
+        } catch (e) {
+            return e
+        }
     }
 
     async InsertPulpits(data, transactionOptions) {
@@ -152,8 +275,56 @@ class DB {
         return data
     }
 
+    // async UpdateFaculty(data) {
+    //     return this.client.then(async (db) => {
+    //         let faculty = await this.GetFaculty({ faculty: data.faculty })
+
+    //         if (!faculty) {
+    //             throw {
+    //                 error: `faculty ${data.faculty} does not exists`,
+    //             }
+    //         }
+
+    //         await db
+    //             .collection('faculty')
+    //             .updateOne(faculty, { $set: data })
+    //             .catch((e) => {
+    //                 throw {
+    //                     error: e.message,
+    //                 }
+    //             })
+
+    //         return await this.GetFaculty(data)
+    //     })
+    // }
+
+    // async UpdatePulpit(data) {
+    //     return this.client.then(async (db) => {
+    //         let pulpit = await this.GetPulpit({ pulpit: data.pulpit })
+
+    //         if (!pulpit) {
+    //             throw {
+    //                 error: `faculty ${data.faculty} does not exists`,
+    //             }
+    //         }
+
+    //         await db
+    //             .collection('pulpit')
+    //             .updateOne(pulpit, { $set: data })
+    //             .catch((e) => {
+    //                 throw {
+    //                     error: e.message,
+    //                 }
+    //             })
+
+    //         return await this.GetPulpit(data)
+    //     })
+    // }
+
     async UpdateFaculty(data) {
-        return this.client.then(async (db) => {
+        try {
+            let db = await this.client
+
             let faculty = await this.GetFaculty({ faculty: data.faculty })
 
             if (!faculty) {
@@ -162,21 +333,17 @@ class DB {
                 }
             }
 
-            await db
-                .collection('faculty')
-                .updateOne(faculty, { $set: data })
-                .catch((e) => {
-                    throw {
-                        error: e.message,
-                    }
-                })
+            await db.collection('faculty').updateOne(faculty, { $set: data })
 
             return await this.GetFaculty(data)
-        })
+        } catch (e) {
+            return e
+        }
     }
 
     async UpdatePulpit(data) {
-        return this.client.then(async (db) => {
+        try {
+            let db = await this.client
             let pulpit = await this.GetPulpit({ pulpit: data.pulpit })
 
             if (!pulpit) {
@@ -185,23 +352,51 @@ class DB {
                 }
             }
 
-            await db
-                .collection('pulpit')
-                .updateOne(pulpit, { $set: data })
-                .catch((e) => {
-                    throw {
-                        error: e.message,
-                    }
-                })
+            await db.collection('pulpit').updateOne(pulpit, { $set: data })
 
             return await this.GetPulpit(data)
-        })
+        } catch (e) {
+            return e
+        }
     }
 
-    async DeleteFaculty(data) {
-        return this.client.then(async (db) => {
-            let faculty = await this.GetFaculty({ faculty: data.faculty })
+    // async DeleteFaculty(data) {
+    //     return this.client.then(async (db) => {
+    //         let faculty = await this.GetFaculty({ faculty: data.faculty })
 
+    //         if (!faculty) {
+    //             throw {
+    //                 error: `faculty ${data.faculty} does not exists`,
+    //             }
+    //         }
+
+    //         await db.collection('faculty').deleteOne(faculty)
+
+    //         return faculty
+    //     })
+    // }
+
+    // async DeletePulpit(data) {
+    //     return this.client.then(async (db) => {
+    //         let pulpit = await this.GetPulpit({ pulpit: data.pulpit })
+
+    //         if (!pulpit) {
+    //             throw {
+    //                 error: `pulpit ${data.pulpit} does not exists`,
+    //             }
+    //         }
+
+    //         await db.collection('pulpit').deleteOne(pulpit)
+
+    //         return pulpit
+    //     })
+    // }
+
+    async DeleteFaculty(data) {
+        try {
+            let db = await this.client
+
+            let faculty = await this.GetFaculty({ faculty: data.faculty })
             if (!faculty) {
                 throw {
                     error: `faculty ${data.faculty} does not exists`,
@@ -211,13 +406,16 @@ class DB {
             await db.collection('faculty').deleteOne(faculty)
 
             return faculty
-        })
+        } catch (e) {
+            return e
+        }
     }
 
     async DeletePulpit(data) {
-        return this.client.then(async (db) => {
-            let pulpit = await this.GetPulpit({ pulpit: data.pulpit })
+        try {
+            let db = await this.client
 
+            let pulpit = await this.GetPulpit({ pulpit: data.pulpit })
             if (!pulpit) {
                 throw {
                     error: `pulpit ${data.pulpit} does not exists`,
@@ -227,7 +425,9 @@ class DB {
             await db.collection('pulpit').deleteOne(pulpit)
 
             return pulpit
-        })
+        } catch (e) {
+            return e
+        }
     }
 }
 
