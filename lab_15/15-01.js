@@ -36,7 +36,7 @@ async function getHandler(request, response) {
 
     switch (path_mas[path_mas.length - 1]) {
         case 'faculties':
-            Db.GetRecordsFromCollection('faculty')
+            Db.GetAllRecordsFromCollection('faculty')
                 .then((r) => {
                     response.end(JSON.stringify(r))
                 })
@@ -55,7 +55,7 @@ async function getHandler(request, response) {
                         writeError(response, error)
                     })
             } else {
-                Db.GetRecordsFromCollection('pulpit')
+                Db.GetAllRecordsFromCollection('pulpit')
                     .then((records) => {
                         response.end(JSON.stringify(records))
                     })
@@ -76,7 +76,9 @@ async function getHandler(request, response) {
         case (pulpit = /\/api\/pulpits\/(\w+)/.exec(urn)?.[1]):
             Db.GetPulpit({ pulpit: pulpit })
                 .then((records) => {
-                    response.end(JSON.stringify(records))
+                    response.end(
+                        JSON.stringify(records === null ? {} : records)
+                    )
                 })
                 .catch((error) => {
                     writeError(response, error)
