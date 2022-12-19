@@ -1416,7 +1416,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"faculty\": \"LLFLF\"\r\n}",
+							"raw": "{\r\n    \"faculty\": \"LL\",\r\n    \"faculty_name\": \"faksdfh\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1445,7 +1445,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"pulpit\": \"KUUUUDU\",\n    \"pulpit_name\": \"Kiber Sport\",\n    \"faculty\": \"ИТ\"\n}",
+							"raw": "{\n    \"pulpit\": \"KEEE\",\n    \"pulpit_name\": \"Kiber Sport\",\n    \"faculty\": \"ИТ\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1474,7 +1474,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "[\n    {\n        \"pulpit\": \"KE\",\n        \"pulpit_name\": \"Kiber Sport\",\n        \"faculty\": \"ИТ\"\n    },\n    {\n        \"pulpit\": \"KEE\",\n        \"pulpit_name\": \"Kiber Sport\",\n        \"faculty\": \"ИТ\"\n    },\n    {\n        \"pulpit\": \"KEEE\",\n        \"pulpit_name\": \"Kiber Sport\",\n        \"faculty\": \"ИТ\"\n    },\n    {\n        \"pulpit\": \"KEEEE\",\n        \"pulpit_name\": \"Kiber Sport\",\n        \"faculty\": \"ИТ\"\n    }\n]\n",
+							"raw": "[\n    {\n        \"pulpit\": \"KE\",\n        \"pulpit_name\": \"Kiber Sport\",\n        \"faculty\": \"ИТ\"\n    },\n    {\n        \"pulpit\": \"KEE\",\n        \"pulpit_name\": \"Kiber Sport\",\n        \"faculty\": \"ИТ\"\n    },\n    {\n        \"pulpit\": \"KEEE\",\n        \"pulpit_name\": \"Kiber Sport\",\n        \"faculty\": \"ИТ\"\n    },\n    {\n        \"pulpit\": \"KEEEE\",\n        \"pulpit_name\": \"Kiber Sport\",\n        \"faculty\": \"ИТ\"\n    }\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1502,7 +1502,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"faculty\": \"LL\",\n    \"faculty_name\": \"Инженернaaab-о\"\n}",
+							"raw": "{\n    \"faculty\": \"LL\",\n    \"faculty_name\": \"Инженер или нет\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1531,7 +1531,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"pulpit\": \"KU\",\n    \"pulpit_name\": \"Kuber Uber\",\n    \"faculty\": \"ИТ\"\n}",
+							"raw": "{\n    \"pulpit\": \"KU\",\n    \"pulpit_name\": \"Kuber Uber super sport\",\n    \"faculty\": \"LL\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1563,7 +1563,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/faculties/LLFL",
+							"raw": "http://localhost:3000/api/faculties/LL",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1572,7 +1572,7 @@
 							"path": [
 								"api",
 								"faculties",
-								"LLFL"
+								"LL"
 							]
 						}
 					},
@@ -1584,7 +1584,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/pulpits/KUU",
+							"raw": "http://localhost:3000/api/pulpits/KEEE",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1593,7 +1593,7 @@
 							"path": [
 								"api",
 								"pulpits",
-								"KUU"
+								"KEEE"
 							]
 						}
 					},
@@ -1702,6 +1702,533 @@
 									"key": "f",
 									"value": "LL"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "lab_16",
+			"item": [
+				{
+					"name": "get_faculties",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    getFaculties {\n        faculty\n        pulpits {\n            pulpit,\n            subjects {\n                subject_name\n            }\n            teachers {\n                teacher_name\n            }\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_teachers_by_faculty",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    getTeachersByFaculty(faculty: \"FOF\") {\n        teacher\n        pulpit {\n            pulpit_name\n            faculty {\n                faculty_name\n            }\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_subjects_by_faculty",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    getSubjectsByFaculty(faculty: \"FOF\") {\n        subject\n        pulpit {\n            pulpit\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_faculty",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    getFaculties(faculty: \"FOF\") {\n        faculty\n        pulpits{\n            pulpit\n        }\n    }\n}",
+								"variables": "{\n    \"faculty\": \"FOF\"\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_teachers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    getTeachers {\n        teacher\n        pulpit {\n            pulpit_name\n        }\n    }\n}",
+								"variables": "{\n    \"faculty\": \"FOF\"\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_pulpits",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    getPulpits {\n        pulpit\n        subjects {\n            subject_name\n        }\n        teachers {\n            teacher_name\n        }\n    }\n}",
+								"variables": "{\n    \"faculty\": \"FOF\"\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_subjects",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    getSubjects {\n        subject_name\n        pulpit {\n            pulpit_name\n            faculty {\n                faculty_name\n            }\n        }\n    }\n}",
+								"variables": "{\n    \"faculty\": \"FOF\"\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_teacher",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    getTeachers(teacher: \"ASI\") {\n        teacher\n        teacher_name\n        pulpit { \n            pulpit\n            pulpit_name\n        }\n    }\n}",
+								"variables": "{\n    \"faculty\": \"FOF\"\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_pulpit",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    getPulpits(pulpit: \"ISIT\") {\n        pulpit\n        teachers {\n            teacher_name\n        }\n        subjects {\n            subject\n            subject_name\n        }\n    }\n}",
+								"variables": "{\n    \"faculty\": \"FOF\"\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_subject",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "query {\n    getSubjects(subject: \"DB\") {\n        subject\n        subject_name\n        pulpit {\n            pulpit_name\n            faculty {\n                faculty_name\n                pulpits {\n                    pulpit_name\n                }\n            }\n        }\n    }\n}",
+								"variables": "{\n    \"faculty\": \"FOF\"\n}"
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set_faculty",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\n    setFaculty(faculty: {\n        faculty: \"GKLSas\",\n        faculty_name: \"aboba\"\n    }) {\n        faculty\n        faculty_name\n        pulpits {\n            pulpit_name\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set_teacher",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\n    setTeacher(teacher: {\n        teacher: \"GKLS\",\n        teacher_name: \"fasddfsladkjfajskdf\",\n        pulpit: \"ISIT\"\n    }) {\n        teacher\n        teacher_name\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set_pulpit",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\n    setPulpit(pulpit: {\n        pulpit: \"GKLS\",\n        pulpit_name: \"aboba\",\n        faculty: \"PAP\"\n    }) {\n        pulpit\n        pulpit_name\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set_subject",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\n    setSubject(subject: {\n        subject: \"GKLS\",\n        subject_name: \"aboba aboab\",\n        pulpit: \"ETAM\"\n    }) {\n        subject\n        subject_name\n        pulpit {\n            pulpit_name\n        }\n    }\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "del_faculty",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\n    delFaculty(faculty: \"GKLSas\")\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "del_teacher",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\n    delTeacher(teacher: \"GKLS\")\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "del_pulpit",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\n    delPulpit(pulpit: \"GKLS\")\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "del_subject",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "graphql",
+							"graphql": {
+								"query": "mutation {\n    delSubject(subject: \"GKLS\")\n}",
+								"variables": ""
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								""
 							]
 						}
 					},
