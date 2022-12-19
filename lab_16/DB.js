@@ -41,6 +41,25 @@ class DataBase {
         )
     }
 
+
+    async getTeachersByFaculty(faculty) {
+        return this.connectionPool.then((pool) =>
+            pool
+                .request()
+                .input('faculty', sql.VarChar, faculty)
+                .query('select t.teacher, t.teacher_name, t.pulpit from teacher t join pulpit p on t.pulpit = p.pulpit where p.faculty = @faculty')
+        )
+    }
+
+    async getSubjectsByFaculty(faculty) {
+        return this.connectionPool.then((pool) =>
+            pool
+                .request()
+                .input('faculty', sql.VarChar, faculty)
+                .query('select s.subject, s.subject_name, s.pulpit from subject s join pulpit p on p.pulpit = s.pulpit where p.faculty = @faculty')
+        )
+    }
+
     async getPulpits() {
         return this.connectionPool.then((pool) =>
             pool.request().query('Select * FROM PULPIT')
@@ -336,6 +355,15 @@ class DataBase {
                 .request()
                 .input('pulpit', sql.NVarChar, pulpit)
                 .query('DELETE FROM PULPIT WHERE PULPIT = @pulpit')
+        })
+    }
+
+    async deleteTeacher(teacher) {
+        return this.connectionPool.then((pool) => {
+            return pool
+                .request()
+                .input('teacher', sql.NVarChar, teacher)
+                .query('DELETE FROM teacher WHERE teacher = @teacher')
         })
     }
 

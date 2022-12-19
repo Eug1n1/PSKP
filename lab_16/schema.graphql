@@ -48,10 +48,15 @@ input inputSubject {
 }
 
 type Mutation {
-    setFaculty(faculty: inputFaculty): Faculty
-    setTeacher(teacher: inputTeacher): Teacher
-    setPulpit(pulpit: inputPulpit): Pulpit
-    setSubject(subject: inputSubject): Subject
+    setFaculty(faculty: inputFaculty!): Faculty
+    setTeacher(teacher: inputTeacher!): Teacher
+    setPulpit(pulpit: inputPulpit!): Pulpit
+    setSubject(subject: inputSubject!): Subject
+
+    delFaculty(faculty: String!): Boolean!
+    delTeacher(teacher: String!): Boolean!
+    delPulpit(pulpit: String!): Boolean!
+    delSubject(subject: String!): Boolean!
 }
 
 type Query {
@@ -59,5 +64,7 @@ type Query {
     getTeachers(teacher: String): [Teacher],
     getPulpits(pulpit: String): [Pulpit],
     getSubjects(subject: String): [Subject]
+    getTeachersByFaculty(faculty: String): [Teacher]
+    getSubjectsByFaculty(faculty: String): [Subject]
     hello: String!
 }

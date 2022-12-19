@@ -1,10 +1,8 @@
 const http = require('http')
 const fs = require('fs')
-const { graphql, buildSchema } = require('graphql')
+const { graphql } = require('graphql')
 
 const DB = require('./DB')
-
-// var schema = buildSchema(fs.readFileSync('./schema.graphql').toString())
 
 let db = new DB()
 
@@ -120,6 +118,29 @@ var rootValue = {
                 }
             }
         },
+        getTeachersByFaculty: async (_, args) => {
+            try {
+                let teachers = await db.getTeachersByFaculty(args.faculty)
+
+                return teachers.recordset
+            } catch (e) {
+                throw {
+                    error: e.message,
+                }
+            }
+        },
+        getSubjectsByFaculty: async (_, args) => {
+            //FIXME: ya huy znaet chto ono dolzhno delat'
+            try {
+                let subjects = await db.getSubjectsByFaculty(args.faculty)
+
+                return subjects.recordset
+            } catch (e) {
+                throw {
+                    error: e.message,
+                }
+            }
+        },
     },
     Mutation: {
         setFaculty: async (_, args) => {
@@ -222,6 +243,66 @@ var rootValue = {
                 subject = await db.getSubject(args.subject.subject)
 
                 return subject.recordset[0]
+            } catch (e) {
+                throw {
+                    error: e.message,
+                }
+            }
+        },
+        delFaculty: async (_, args) => {
+            try {
+                let faculty = await db.getFaculty(args.faculty)
+                if (faculty.recordset[0]) {
+                    await db.deleteFaculty(args.faculty)
+                    return true
+                } 
+
+                return false
+            } catch (e) {
+                throw {
+                    error: e.message,
+                }
+            }
+        },
+        delTeacher: async (_, args) => {
+            try {
+                let teacher = await db.getTeacher(args.teacher)
+                if (teacher.recordset[0]) {
+                    await db.deleteTeacher(args.teacher)
+                    return true
+                } 
+
+                return false
+            } catch (e) {
+                throw {
+                    error: e.message,
+                }
+            }
+        },
+        delPulpit: async (_, args) => {
+            try {
+                let pulpit = await db.getPulpit(args.pulpit)
+                if (pulpit.recordset[0]) {
+                    await db.deletePulpit(args.pulpit)
+                    return true
+                } 
+
+                return false
+            } catch (e) {
+                throw {
+                    error: e.message,
+                }
+            }
+        },
+        delSubject: async (_, args) => {
+            try {
+                let subject = await db.getSubject(args.subject)
+                if (subject.recordset[0]) {
+                    await db.deleteSubject(args.subject)
+                    return true
+                } 
+
+                return false
             } catch (e) {
                 throw {
                     error: e.message,
