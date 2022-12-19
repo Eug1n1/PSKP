@@ -70,7 +70,6 @@ class DB {
             let db = await this.client
 
             return await db.collection(collection).find({}).toArray()
- 
         } catch (e) {
             return e
         }
@@ -89,8 +88,9 @@ class DB {
     async GetFaculty(filter) {
         try {
             let db = await this.client
+            let faculty = await db.collection('faculty').findOne(filter)
 
-            return await db.collection('faculty').findOne(filter)
+            return faculty === null ? {} : faculty
         } catch (e) {
             return e
         }
@@ -265,14 +265,15 @@ class DB {
             }
 
             await session.commitTransaction()
+
+            return data
         } catch (e) {
             await session.abortTransaction()
-            console.log(e)
+
+            return e
         } finally {
             await session.endSession()
         }
-
-        return data
     }
 
     // async UpdateFaculty(data) {

@@ -134,9 +134,8 @@ function postHandler(request, response) {
                     readConcern: { level: 'local' },
                     writeConcern: { m: 'majority' },
                 }).then((data) => {
-                    console.log(data)
+                    response.end(JSON.stringify(data))
                 })
-                response.end('132')
             })
             break
         default:
