@@ -2,7 +2,7 @@ const http = require('http')
 const fs = require('fs')
 const { graphql } = require('graphql')
 
-let rootValue = require('./resolver')
+let rootValue = require('./resolvers')
 let typeDefs = fs.readFileSync('./schema.graphql').toString()
 
 let schema = require('@graphql-tools/schema').makeExecutableSchema({
