@@ -44,14 +44,13 @@ module.exports = {
         hello: () => {
             return 'Hello world!'
         },
-        getFaculties: async (_, args, context) => {
+        getFaculties: async (_, args) => {
             if (args.faculty) {
                 let faculty = await db.getFaculty(args.faculty)
 
                 return faculty.recordset
             }
 
-            console.log(context)
             let faculties = (await db.getFaculties()).recordset
 
             return faculties
