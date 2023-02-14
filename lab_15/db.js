@@ -201,7 +201,7 @@ class DB {
 
             let faculty = await this.GetFaculty({ faculty: data?.faculty })
 
-            if (faculty) {
+            if (!faculty) {
                 throw {
                     error: `faculty ${JSON.stringify(
                         data.faculty
@@ -221,8 +221,9 @@ class DB {
         try {
             let db = await this.client
 
-            let pulpit = await this.GetPulpit({ pulpit: data.pulpit })
+            let pulpit = await this.GetPulpit({ pulpit: data?.pulpit })
 
+            console.log(pulpit)
             if (pulpit) {
                 throw {
                     error: `pulpit ${data.pulpit} already exists`,
