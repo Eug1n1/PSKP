@@ -1,0 +1,5 @@
+project('lab_13', 'c')
+executable('tcp_client', 'tcp_client.c')
+executable('tcp_server', 'tcp_server.c')
+executable('udp_client', 'udp_client.c')
+executable('udp_server', 'udp_server.c')
