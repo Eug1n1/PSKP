@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>index</title>
+    </head>
+
+    <body>
+        <div>
+            <div style="color: darkred" id="app_error"></div>
+            <div>
+                <label>teacher: </label>
+                <input type="text" class="col-3" id="teacher" />
+            </div>
+            <br />
+            <div>
+                <label>teacher_name: </label>
+                <input type="text" class="col-3" id="teacher_name" />
+            </div>
+            <br />
+            <div>
+                <label>pulpit: </label>
+                <input type="text" class="col-3" id="pulpit" />
+            </div>
+            <div>
+                <button onclick="Delete()">DELETE</button>
+                <button onclick="Put()">PUT</button>
+                <button onclick="Post()">POST</button>
+                <button onclick="Get()">GET</button>
+            </div>
+            <pre id="result" content=""></pre>
+            <br />
+        </div>
+        <script>
+            let result = document.getElementById('result')
+            result.setAttribute('style', 'color: black')
+
+            async function Get() {
+                let result = document.getElementById('result')
+                result.setAttribute('style', 'color: black')
+
+                fetch('/api/teachers', {
+                    method: 'GET',
+                })
+                    .then((response) => {
+                        if (response.ok == false) {
+                            throw response.json()
+                        }
+
+                        return response.json()
+                    })
+                    .then((data) => {
+                        result.innerHTML = JSON.stringify(data, null, '\t')
+                    })
+                    .catch((error) => {
+                        result.setAttribute('style', 'color: red')
+                        error.then((a) => {
+                            result.innerHTML = JSON.stringify(a, null, '\t')
+                        })
+                    })
+            }
+
+            function Post() {
+                let teacher = document.getElementById('teacher')
+                let teacher_name = document.getElementById('teacher_name')
+                let pulpit = document.getElementById('pulpit')
+
+                let result = document.getElementById('result')
+                result.setAttribute('style', 'color: black')
+
+                let data = {
+                    teacher: teacher.value,
+                    teacherName: teacher_name.value,
+                    pulpit: pulpit.value,
+                }
+
+                console.log(JSON.stringify(data))
+
+                fetch('/api/teachers', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: { 'Content-Type': 'application/json' },
+                })
+                    .then((response) => {
+                        if (response.ok == false) {
+                            throw response.json()
+                        }
+
+                        return response.json()
+                    })
+                    .then((data) => {
+                        result.innerHTML = JSON.stringify(data, null, '\t')
+                    })
+                    .catch((error) => {
+                        result.setAttribute('style', 'color: red')
+                        error.then((a) => {
+                            result.innerHTML = JSON.stringify(a, null, '\t')
+                        })
+                    })
+            }
+
+            function Delete() {
+                let teacher = document.getElementById('teacher')
+                result.setAttribute('style', 'color: black')
+
+                fetch(`/api/teachers/${teacher.value}`, {
+                    method: 'DELETE',
+                })
+                    .then((response) => {
+                        if (response.ok == false) {
+                            throw response.json()
+                        }
+
+                        return response.json()
+                    })
+                    .then((data) => {
+                        result.innerHTML = JSON.stringify(data, null, '\t')
+                    })
+                    .catch((error) => {
+                        result.setAttribute('style', 'color: red')
+                        error.then((a) => {
+                            result.innerHTML = JSON.stringify(a, null, '\t')
+                        })
+                    })
+            }
+
+            function Put() {
+                let teacher = document.getElementById('teacher')
+                let teacher_name = document.getElementById('teacher_name')
+                let pulpit = document.getElementById('pulpit')
+
+                result.setAttribute('style', 'color: black')
+
+                let data = {
+                    teacher: teacher.value,
+                    teacherName: teacher_name.value,
+                    pulpit: pulpit.value,
+                }
+
+                console.log(data)
+                fetch('/api/teachers', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                })
+                    .then((response) => {
+                        if (response.ok == false) {
+                            throw response.json()
+                        }
+
+                        return response.json()
+                    })
+                    .then((data) => {
+                        result.innerHTML = JSON.stringify(data, null, '\t')
+                    })
+                    .catch((error) => {
+                        result.setAttribute('style', 'color: red')
+                        error.then((a) => {
+                            result.innerHTML = JSON.stringify(a, null, '\t')
+                        })
+                    })
+            }
+        </script>
+    </body>
+</html>
