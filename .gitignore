@@ -3,3 +3,4 @@ node_modules/
 build/
 ./lab_12/*_StudentList.json
 .env
+**/db.sqlite
