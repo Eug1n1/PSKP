@@ -5,7 +5,24 @@ const prisma = new PrismaClient()
 
 router.post('/api/faculties', async (req, res) => {
     try {
-        res.json(await prisma.faculty.create({ data: req.body }))
+        if (req.body.pulpits) {
+            res.json(
+                await prisma.faculty.create({
+                    data: {
+                        faculty: req.body.faculty,
+                        facultyName: req.body.facultyName,
+                        pulpits: {
+                            create: req.body.pulpits,
+                        },
+                    },
+                    include: {
+                        pulpits: true,
+                    },
+                })
+            )
+        } else {
+            res.json(await prisma.faculty.create({ data: req.body }))
+        }
     } catch (e) {
         res.status(400)
         res.json(e)
@@ -14,7 +31,24 @@ router.post('/api/faculties', async (req, res) => {
 
 router.post('/api/pulpits', async (req, res) => {
     try {
-        res.json(await prisma.pulpit.create({ data: req.body }))
+        if (req.body.faculty) {
+            res.json(
+                await prisma.pulpit.create({
+                    data: {
+                        pulpit: req.body.pulpit,
+                        pulpitName: req.body.pulpitName,
+                        faculty: {
+                            create: req.body.faculty,
+                        },
+                    },
+                    include: {
+                        faculty: true,
+                    },
+                })
+            )
+        } else {
+            res.json(await prisma.pulpit.create({ data: req.body }))
+        }
     } catch (e) {
         res.status(400)
         res.json(e)
