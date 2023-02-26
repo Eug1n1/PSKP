@@ -5,3 +5,4 @@ build/
 .env
 **/db.sqlite
 lab_19/prisma/dev.db
+lab_19/prisma/dev.db
