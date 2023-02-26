@@ -1,5 +1,4 @@
-const PrismaClient = require('@prisma/client').PrismaClient
-const prisma = new PrismaClient()
+const { prisma } = require('./prismaClient')
 
 ;(async () => {
     await prisma.faculty.create({

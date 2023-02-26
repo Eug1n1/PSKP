@@ -1,7 +1,5 @@
 const router = require('express').Router()
-const PrismaClient = require('@prisma/client').PrismaClient
-
-const prisma = new PrismaClient()
+const { prisma } = require('../prismaClient')
 
 router.post('/api/faculties', async (req, res) => {
     try {

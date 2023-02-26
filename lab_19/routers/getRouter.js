@@ -1,8 +1,6 @@
 const router = require('express').Router()
 const path = require('path')
-const PrismaClient = require('@prisma/client').PrismaClient
-
-const prisma = new PrismaClient()
+const { prisma } = require('../prismaClient')
 
 router.get('/', (_, res) => {
     res.sendFile(path.join(__dirname, '../index.html'))
