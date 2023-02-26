@@ -99,4 +99,24 @@ router.put('/api/auditoriumtypes', async (req, res) => {
     }
 })
 
+router.put('/api/transaction', async (_, res) => {
+    await prisma
+        .$transaction(async (tx) => {
+            await tx.auditorium.updateMany({
+                data: {
+                    auditoriumCapacity: {
+                        increment: 100,
+                    },
+                },
+            })
+
+            res.json(await tx.auditorium.findMany())
+
+            throw 'rollback transaction'
+        })
+        .catch((e) => {
+            console.log(e)
+        })
+})
+
 module.exports = router
