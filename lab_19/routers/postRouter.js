@@ -38,7 +38,12 @@ router.post('/api/pulpits', async (req, res) => {
                         pulpit: req.body.pulpit,
                         pulpitName: req.body.pulpitName,
                         faculty: {
-                            create: req.body.faculty,
+                            connectOrCreate: {
+                                where: {
+                                    faculty: req.body.faculty.faculty,
+                                },
+                                create: req.body.faculty,
+                            },
                         },
                     },
                     include: {
