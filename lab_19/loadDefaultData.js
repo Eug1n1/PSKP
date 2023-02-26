@@ -1,4 +1,7 @@
-module.exports = async (prisma) => {
+const PrismaClient = require('@prisma/client').PrismaClient
+const prisma = new PrismaClient()
+
+;(async () => {
     await prisma.faculty.create({
         data: {
             faculty: 'IT',
@@ -70,6 +73,13 @@ module.exports = async (prisma) => {
             pulpitId: 'POIT',
         },
     })
+    await prisma.teacher.create({
+        data: {
+            teacher: 'DVK',
+            teacherName: 'Vladimir Aboba',
+            pulpitId: 'POIT',
+        },
+    })
 
     await prisma.auditoriumType.create({
         data: {
@@ -116,4 +126,12 @@ module.exports = async (prisma) => {
             auditoriumTypeId: 'LB',
         },
     })
-}
+})()
+    .then(async () => {
+        await prisma.$disconnect()
+    })
+    .catch(async (e) => {
+        console.error(e)
+        await prisma.$disconnect()
+        process.exit(1)
+    })
