@@ -1,14 +1,11 @@
 const router = require('express').Router()
+const path = require('path')
 const PrismaClient = require('@prisma/client').PrismaClient
 
 const prisma = new PrismaClient()
 
 router.get('/', (_, res) => {
-    res.send('aboba')
-})
-
-router.get('/', (_, res) => {
-    res.sendFile(path.join(__dirname, '/index.html'))
+    res.sendFile(path.join(__dirname, '../index.html'))
 })
 
 router.get('/api/faculties', async (_, res) => {
@@ -150,5 +147,47 @@ router.get('/api/auditoriumsSameCount', async (req, res) => {
     )
 })
 
+router.get('/api/pulpit_page', async (req, res) => {
+    let take = 4
+    let page = req.query.page
+    if (page < 0) {
+        res.status(400)
+        res.json({
+            error: 'invalid page number',
+        })
+        return
+    }
+
+    let pulpits = await prisma.pulpit.findMany({
+        take: take,
+        skip: req.query.page * take,
+        include: {
+            _count: {
+                select: {
+                    teachers: true,
+                },
+            },
+        },
+    })
+
+    // let pulpits = await prisma.pulpit.groupBy({
+    //     take: take,
+    //     skip: page * take,
+    //     by: ['pulpit'],
+    //     _count: {
+    //         teachers: true,
+    //     },
+    // })
+
+    if (pulpits.length == 0) {
+        res.status(400)
+        res.json({
+            error: 'invalid page number',
+        })
+        return
+    }
+
+    res.json(pulpits)
+})
 
 module.exports = router

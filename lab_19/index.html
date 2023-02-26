@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8" />
+</head>
+
+<body>
+    <pre id="result" style="height: 80vh"></pre>
+    <button type="button" onclick="loadPrevPage()">prev</button>
+    <span id="page_number"></span>
+    <button type="button" onclick="loadNextPage()">next</button>
+
+    <script>
+        let result = document.getElementById('result')
+        let pageNumber = document.getElementById('page_number')
+        let currentPage = 0
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            loadPage(currentPage)
+            pageNumber.innerText = currentPage
+        })
+
+        async function loadNextPage() {
+            try {
+                await loadPage(currentPage + 1)
+
+                currentPage++
+                pageNumber.innerText = currentPage
+            } catch (e) {
+                console.log(e)
+            }
+        }
+
+        async function loadPrevPage() {
+            try {
+                await loadPage(currentPage - 1)
+
+                if (currentPage > 0) {
+                    currentPage--
+                }
+                pageNumber.innerText = currentPage
+            } catch (e) {
+                console.log(e)
+            }
+        }
+
+        async function loadPage(page) {
+            let response = await fetch(
+                '/api/pulpit_page?' +
+                new URLSearchParams({
+                    page: page,
+                })
+            )
+            let json = await response.json()
+
+            if (!response.ok) {
+                throw json
+            }
+
+            result.innerText = JSON.stringify(json, null, '\t')
+        }
+    </script>
+</body>
+
+</html>
