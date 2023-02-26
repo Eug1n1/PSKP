@@ -170,15 +170,6 @@ router.get('/api/pulpit_page', async (req, res) => {
         },
     })
 
-    // let pulpits = await prisma.pulpit.groupBy({
-    //     take: take,
-    //     skip: page * take,
-    //     by: ['pulpit'],
-    //     _count: {
-    //         teachers: true,
-    //     },
-    // })
-
     if (pulpits.length == 0) {
         res.status(400)
         res.json({
