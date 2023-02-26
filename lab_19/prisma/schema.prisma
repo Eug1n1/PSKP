@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+model Faculty {
+    faculty     String   @id
+    facultyName String
+    pulpits     Pulpit[]
+}
+
+model Pulpit {
+    pulpit     String    @id
+    pulpitName String
+    facultyId  String
+    faculty    Faculty   @relation(fields: [facultyId], references: [faculty])
+    subjects   Subject[]
+    teachers   Teacher[]
+}
+
+model Subject {
+    subject     String @id
+    subjectName String
+    pulpitId    String @map("PulpitId")
+    pulpit      Pulpit @relation(fields: [pulpitId], references: [pulpit])
+}
+
+model Teacher {
+    teacher     String @id
+    teacherName String
+    pulpitId    String @map("PulpitId")
+    pulpit      Pulpit @relation(fields: [pulpitId], references: [pulpit])
+}
+
+model AuditoriumType {
+    auditoriumType     String       @id
+    auditoriumTypeName String
+    auditoriums        Auditorium[]
+}
+
+model Auditorium {
+    auditorium         String         @id
+    auditoriumName     String
+    auditoriumCapacity Int
+    auditoriumTypeId   String
+    auditoriumType     AuditoriumType @relation(fields: [auditoriumTypeId], references: [auditoriumType])
+}
