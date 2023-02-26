@@ -57,6 +57,19 @@ router.get('/api/faculties/:faculty([A-Za-z]+)/subjects', async (req, res) => {
     )
 })
 
+// fluent api
+router.get('/api/faculty/:faculty/pulpits', async (req, res) => {
+    let faculty = req.params.faculty
+
+    res.json(
+        await prisma.faculty.findUnique({
+            where: {
+                faculty: faculty
+            }
+        }).pulpits()
+    )
+})
+
 router.get(
     '/api/auditoriumtypes/:auditoriumType([A-Za-z]+)/auditoriums',
     async (req, res) => {
@@ -80,7 +93,7 @@ router.get(
     }
 )
 
-router.get('/api/auditoriumsWithComp1', async (req, res) => {
+router.get('/api/auditoriumsWithComp1', async (_, res) => {
     res.json(
         await prisma.auditorium.findMany({
             where: {
@@ -97,7 +110,7 @@ router.get('/api/auditoriumsWithComp1', async (req, res) => {
     )
 })
 
-router.get('/api/puplitsWithoutTeachers', async (req, res) => {
+router.get('/api/puplitsWithoutTeachers', async (_, res) => {
     res.json(
         await prisma.pulpit.findMany({
             where: {
@@ -113,7 +126,7 @@ router.get('/api/puplitsWithoutTeachers', async (req, res) => {
     )
 })
 
-router.get('/api/pulpitsWithVladimir', async (req, res) => {
+router.get('/api/pulpitsWithVladimir', async (_, res) => {
     res.json(
         await prisma.pulpit.findMany({
             where: {
@@ -135,7 +148,7 @@ router.get('/api/pulpitsWithVladimir', async (req, res) => {
     )
 })
 
-router.get('/api/auditoriumsSameCount', async (req, res) => {
+router.get('/api/auditoriumsSameCount', async (_, res) => {
     res.json(
         await prisma.auditorium.groupBy({
             by: ['auditoriumCapacity', 'auditoriumTypeId'],
