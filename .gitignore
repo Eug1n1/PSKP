@@ -4,3 +4,4 @@ build/
 ./lab_12/*_StudentList.json
 .env
 **/db.sqlite
+lab_19/prisma/dev.db
