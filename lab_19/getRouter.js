@@ -1,41 +1,41 @@
-const getRouter = require('express').Router()
+const router = require('express').Router()
 const PrismaClient = require('@prisma/client').PrismaClient
 
 const prisma = new PrismaClient()
 
-getRouter.get('/', (_, res) => {
+router.get('/', (_, res) => {
     res.send('aboba')
 })
 
-getRouter.get('/', (_, res) => {
+router.get('/', (_, res) => {
     res.sendFile(path.join(__dirname, '/index.html'))
 })
 
-getRouter.get('/api/faculties', async (_, res) => {
+router.get('/api/faculties', async (_, res) => {
     res.json(await prisma.faculty.findMany())
 })
 
-getRouter.get('/api/pulpits', async (_, res) => {
+router.get('/api/pulpits', async (_, res) => {
     res.json(await prisma.pulpit.findMany())
 })
 
-getRouter.get('/api/subjects', async (_, res) => {
+router.get('/api/subjects', async (_, res) => {
     res.json(await prisma.subject.findMany())
 })
 
-getRouter.get('/api/teachers', async (_, res) => {
+router.get('/api/teachers', async (_, res) => {
     res.json(await prisma.teacher.findMany())
 })
 
-getRouter.get('/api/auditoriums', async (_, res) => {
+router.get('/api/auditoriums', async (_, res) => {
     res.json(await prisma.auditorium.findMany())
 })
 
-getRouter.get('/api/auditoriumtypes', async (_, res) => {
+router.get('/api/auditoriumtypes', async (_, res) => {
     res.json(await prisma.auditoriumType.findMany())
 })
 
-getRouter.get('/api/faculties/:faculty([A-Za-z]+)/subjects', async (req, res) => {
+router.get('/api/faculties/:faculty([A-Za-z]+)/subjects', async (req, res) => {
     const faculty = req.params.faculty
 
     res.json(
@@ -60,7 +60,7 @@ getRouter.get('/api/faculties/:faculty([A-Za-z]+)/subjects', async (req, res) =>
     )
 })
 
-getRouter.get(
+router.get(
     '/api/auditoriumtypes/:auditoriumType([A-Za-z]+)/auditoriums',
     async (req, res) => {
         const auditoriumType = req.params.auditoriumType
@@ -83,7 +83,7 @@ getRouter.get(
     }
 )
 
-getRouter.get('/api/auditoriumsWithComp1', async (req, res) => {
+router.get('/api/auditoriumsWithComp1', async (req, res) => {
     res.json(
         await prisma.auditorium.findMany({
             where: {
@@ -100,7 +100,7 @@ getRouter.get('/api/auditoriumsWithComp1', async (req, res) => {
     )
 })
 
-getRouter.get('/api/puplitsWithoutTeachers', async (req, res) => {
+router.get('/api/puplitsWithoutTeachers', async (req, res) => {
     res.json(
         await prisma.pulpit.findMany({
             where: {
@@ -116,7 +116,7 @@ getRouter.get('/api/puplitsWithoutTeachers', async (req, res) => {
     )
 })
 
-getRouter.get('/api/pulpitsWithVladimir', async (req, res) => {
+router.get('/api/pulpitsWithVladimir', async (req, res) => {
     res.json(
         await prisma.pulpit.findMany({
             where: {
@@ -138,7 +138,7 @@ getRouter.get('/api/pulpitsWithVladimir', async (req, res) => {
     )
 })
 
-getRouter.get('/api/auditoriumsSameCount', async (req, res) => {
+router.get('/api/auditoriumsSameCount', async (req, res) => {
     res.json(
         await prisma.auditorium.groupBy({
             by: ['auditoriumCapacity', 'auditoriumTypeId'],
@@ -151,4 +151,4 @@ getRouter.get('/api/auditoriumsSameCount', async (req, res) => {
 })
 
 
-module.exports = getRouter
+module.exports = router
