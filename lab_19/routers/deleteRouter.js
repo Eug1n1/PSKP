@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { prisma } = require('../prismaClient')
+const { prisma } = require('../db')
 
 router.delete('/api/faculties/:faculty', async (req, res) => {
     try {

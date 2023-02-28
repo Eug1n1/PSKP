@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { prisma } = require('../prismaClient')
+const { prisma } = require('../db')
 
 router.post('/api/faculties', async (req, res) => {
     try {
