@@ -1416,7 +1416,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"faculty\": \"LL\",\r\n    \"faculty_name\": \"faksdfh\"\r\n}",
+							"raw": "{\r\n    \"faculty\": \"ИТ1\",\r\n    \"faculty_name\": \"faksdfh\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1445,7 +1445,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"pulpit\": \"KEEE\",\n    \"pulpit_name\": \"Kiber Sport\",\n    \"faculty\": \"ИТ\"\n}",
+							"raw": "{\n    \"pulpit\": \"KU\",\n    \"pulpit_name\": \"Kiber Sport\",\n    \"faculty\": \"ИТ\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1563,7 +1563,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost:3000/api/faculties/LL",
+							"raw": "http://localhost:3000/api/faculties/ИТ",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1572,7 +1572,7 @@
 							"path": [
 								"api",
 								"faculties",
-								"LL"
+								"ИТ"
 							]
 						}
 					},
@@ -1584,7 +1584,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/pulpits/KEEE",
+							"raw": "http://localhost:3000/api/pulpits/KU",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1593,7 +1593,7 @@
 							"path": [
 								"api",
 								"pulpits",
-								"KEEE"
+								"KU"
 							]
 						}
 					},
@@ -1625,7 +1625,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/api/faculties/LL",
+							"raw": "http://localhost:3000/api/faculties/ИТ",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -1634,7 +1634,7 @@
 							"path": [
 								"api",
 								"faculties",
-								"LL"
+								"ИТ"
 							]
 						}
 					},
@@ -1723,7 +1723,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query {\n    getFaculties {\n        faculty\n        pulpits {\n            pulpit,\n            subjects {\n                subject_name\n            }\n            teachers {\n                teacher_name\n            }\n        }\n    }\n}",
+								"query": "query {\n    getFaculties {\n        faculty_name\n        pulpits {\n            pulpit\n        }\n    }\n}",
 								"variables": ""
 							}
 						},
@@ -1752,7 +1752,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query {\n    getTeachersByFaculty(faculty: \"FOF\") {\n        teacher\n        pulpit {\n            pulpit_name\n            faculty {\n                faculty_name\n            }\n        }\n    }\n}",
+								"query": "query {\n    getTeachersByFaculty(faculty: \"FOF\") {\n        teacher\n        pulpit {\n            pulpit_name\n            faculty {\n                faculty\n            }\n        }\n    }\n}",
 								"variables": ""
 							}
 						},
@@ -1781,7 +1781,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query {\n    getSubjectsByFaculty(faculty: \"FOF\") {\n        subject\n        pulpit {\n            pulpit\n        }\n    }\n}",
+								"query": "query {\n    getSubjectsByFaculty(faculty: \"FOF\") {\n        subject\n        pulpit {\n            pulpit\n            faculty {\n                faculty\n            }\n        }\n    }\n}",
 								"variables": ""
 							}
 						},
@@ -1810,7 +1810,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query {\n    getFaculties(faculty: \"FOF\") {\n        faculty\n        pulpits{\n            pulpit\n        }\n    }\n}",
+								"query": "query ($faculty: String) {\n    getFaculties(faculty: $faculty) {\n        faculty\n        pulpits{\n            pulpit_name\n        }\n    }\n}",
 								"variables": "{\n    \"faculty\": \"FOF\"\n}"
 							}
 						},
@@ -1839,7 +1839,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query {\n    getTeachers {\n        teacher\n        pulpit {\n            pulpit_name\n        }\n    }\n}",
+								"query": "query {\n    getTeachers {\n        teacher_name\n        pulpit {\n            pulpit_name\n        }\n    }\n}",
 								"variables": "{\n    \"faculty\": \"FOF\"\n}"
 							}
 						},
@@ -1868,7 +1868,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query {\n    getPulpits {\n        pulpit\n        subjects {\n            subject_name\n        }\n        teachers {\n            teacher_name\n        }\n    }\n}",
+								"query": "query {\n    getPulpits {\n        pulpit_name\n        subjects {\n            subject_name\n        }\n        teachers {\n            teacher_name\n        }\n    }\n}",
 								"variables": "{\n    \"faculty\": \"FOF\"\n}"
 							}
 						},
@@ -1984,7 +1984,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "query {\n    getSubjects(subject: \"DB\") {\n        subject\n        subject_name\n        pulpit {\n            pulpit_name\n            faculty {\n                faculty_name\n                pulpits {\n                    pulpit_name\n                }\n            }\n        }\n    }\n}",
+								"query": "query {\n    getSubjects(subject: \"DB\") {\n        subject\n        subject_name\n        pulpit {\n            pulpit_name\n        }\n    }\n}",
 								"variables": "{\n    \"faculty\": \"FOF\"\n}"
 							}
 						},
@@ -2013,7 +2013,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation {\n    setFaculty(faculty: {\n        faculty: \"GKLSas\",\n        faculty_name: \"aboba\"\n    }) {\n        faculty\n        faculty_name\n        pulpits {\n            pulpit_name\n        }\n    }\n}",
+								"query": "mutation {\n    setFaculty(faculty: {\n        faculty: \"GKLSas\",\n        faculty_name: \"sadlfwoer\"\n    }) {\n        faculty\n        faculty_name\n        pulpits {\n            pulpit_name\n        }\n    }\n}",
 								"variables": ""
 							}
 						},
@@ -2042,7 +2042,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation {\n    setTeacher(teacher: {\n        teacher: \"GKLS\",\n        teacher_name: \"fasddfsladkjfajskdf\",\n        pulpit: \"ISIT\"\n    }) {\n        teacher\n        teacher_name\n    }\n}",
+								"query": "mutation {\n    setTeacher(teacher: {\n        teacher: \"GKLS\",\n        teacher_name: \"sadfkjh\",\n        pulpit: \"FM\"\n    }) {\n        teacher\n        teacher_name\n        pulpit {\n            pulpit\n        }\n    }\n}",
 								"variables": ""
 							}
 						},
@@ -2071,7 +2071,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation {\n    setPulpit(pulpit: {\n        pulpit: \"GKLS\",\n        pulpit_name: \"aboba\",\n        faculty: \"PAP\"\n    }) {\n        pulpit\n        pulpit_name\n    }\n}",
+								"query": "fragment postPulpit on Pulpit {\n    pulpit\n}\n\nfragment postFaculty on Faculty {\n    faculty\n    faculty_name\n}\n\nmutation {\n  setFaculty(faculty: {\n      faculty: \"FOF\"\n      faculty_name: \"fadslkf\"\n  }) {\n      ...postFaculty\n      pulpits{\n          ...postPulpit\n      }\n  }\n}",
 								"variables": ""
 							}
 						},
@@ -2100,7 +2100,7 @@
 						"body": {
 							"mode": "graphql",
 							"graphql": {
-								"query": "mutation {\n    setSubject(subject: {\n        subject: \"GKLS\",\n        subject_name: \"aboba aboab\",\n        pulpit: \"ETAM\"\n    }) {\n        subject\n        subject_name\n        pulpit {\n            pulpit_name\n        }\n    }\n}",
+								"query": "mutation {\n    setSubject(subject: {\n        subject: \"GKLS\",\n        subject_name: \"123123\",\n        pulpit: \"ETAM\"\n    }) {\n        subject\n        subject_name\n        pulpit {\n            pulpit_name\n        }\n    }\n}",
 								"variables": ""
 							}
 						},
@@ -2229,6 +2229,1505 @@
 							"port": "3000",
 							"path": [
 								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "lab_18",
+			"item": [
+				{
+					"name": "get_faculties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/faculties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_faculties",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"faculty\": \"CS\",\n    \"facultyName\": \"cyber sport\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/faculties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_faculties",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"faculty\": \"C1S\",\n    \"facultyName\": \"no cyber sport\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/faculties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_faculties",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/faculties/IT",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties",
+								"IT"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_pulpits",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pulpit\": \"pulpit\",\n    \"pulpitName\": \"pulpit name\",\n    \"faculty\": \"CS\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/pulpits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_pulpits",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pulpit\": \"pulpit\",\n    \"pulpitName\": \"no pulpit name\",\n    \"faculty\": \"IT\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/pulpits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_subjects",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"subject\": \"subject\",\n    \"subjectName\": \"subject name\",\n    \"pulpit\": \"pulpit\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/subjects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"subjects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_subjects",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"subject\": \"subject\",\n    \"subjectName\": \"no subject name\",\n    \"pulpit\": \"POIT\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/subjects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"subjects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_teachers",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"teacher\": \"teacher\",\n    \"teacherName\": \"teacher name\",\n    \"pulpit\": \"POIT\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/teachers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"teachers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_teachers",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"teacher\": \"teacher\",\n    \"teacherName\": \"no teacher name\",\n    \"pulpit\": \"POIT\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/teachers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"teachers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_teachers",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/teachers/teacher",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"teachers",
+								"teacher"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_auditoriums",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"auditorium\": \"auditorium\",\n    \"auditoriumName\": \"auditorium name\",\n    \"auditoriumType\": \"LK\",\n    \"auditoriumCapacity\": 100\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_auditoriums",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"auditorium\": \"auditorium\",\n    \"auditoriumName\": \"no auditorium name\",\n    \"auditoriumType\": \"LB\",\n    \"auditoriumCapacity\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_auditoriums",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriums/200-3a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriums",
+								"200-3a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_auditorium_types",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"auditoriumType\": \"auditoriumType\",\n    \"auditoriumTypeName\": \"auditoriumType name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriumtypes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriumtypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_auditorium_types",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"auditoriumType\": \"auditoriumType\",\n    \"auditoriumTypeName\": \"no auditoriumType name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriumtypes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriumtypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_auditorium_types",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriumtypes/auditoriumType",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriumtypes",
+								"auditoriumType"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transaction",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"auditoriumType\": \"auditoriumType\",\n    \"auditoriumTypeName\": \"no auditoriumType name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/transaction",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_pulpits",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/pulpits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_subjects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/subjects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"subjects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_teachers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/teachers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"teachers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_auditoriums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_auditorium_types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriumtypes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriumtypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_faculty_subjects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/faculties/IT/subjects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties",
+								"IT",
+								"subjects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_auditorium_type_auditorium",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriumtypes/LB/auditoriums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriumtypes",
+								"LB",
+								"auditoriums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_scope",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/scope",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"scope"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "lab_19",
+			"item": [
+				{
+					"name": "get_faculties",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/faculties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_pulpits",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/pulpits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_subjects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/subjects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"subjects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_teachers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/teachers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"teachers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_auditoriums",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_auditorium_types",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriumtypes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriumtypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_faculty_subjects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/faculties/IT/subjects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties",
+								"IT",
+								"subjects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_faculty_subjects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/faculty/IT/pulpits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculty",
+								"IT",
+								"pulpits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_auditorium_type_auditorium",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriumtypes/LB/auditoriums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriumtypes",
+								"LB",
+								"auditoriums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_pulpitsWithoutTeachers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/puplitsWithoutTeachers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"puplitsWithoutTeachers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_auditoriumsWithComp1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriumsWithComp1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriumsWithComp1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_pulpitsWithVladimir",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/pulpitsWithVladimir",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpitsWithVladimir"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_auditoriumsSameCount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriumsSameCount",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriumsSameCount"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_pulpit_page",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/pulpit_page?page=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpit_page"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_faculties",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"faculty\": \"CS\",\n    \"facultyName\": \"cyber sport\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/faculties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_faculties_and_pulpits",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"faculty\": \"CS\",\n    \"facultyName\": \"cyber sport\",\n    \"pulpits\": [\n        {\n            \"pulpit\": \"pulpit1\",\n            \"pulpitName\": \"pulpit1 name\"\n        },\n        {\n            \"pulpit\": \"pulpit2\",\n            \"pulpitName\": \"pulpit2 name\"\n        },\n        {\n            \"pulpit\": \"pulpit3\",\n            \"pulpitName\": \"pulpit3 name\"\n        },\n        {\n            \"pulpit\": \"pulpit4\",\n            \"pulpitName\": \"pulpit1 name\"\n        },\n        {\n            \"pulpit\": \"pulpit5\",\n            \"pulpitName\": \"pulpit2 name\"\n        },\n        {\n            \"pulpit\": \"pulpit6\",\n            \"pulpitName\": \"pulpit3 name\"\n        },\n        {\n            \"pulpit\": \"pulpit7\",\n            \"pulpitName\": \"pulpit1 name\"\n        },\n        {\n            \"pulpit\": \"pulpit8\",\n            \"pulpitName\": \"pulpit2 name\"\n        },\n        {\n            \"pulpit\": \"pulpit9\",\n            \"pulpitName\": \"pulpit3 name\"\n        },\n        {\n            \"pulpit\": \"pulpit10\",\n            \"pulpitName\": \"pulpit1 name\"\n        },\n        {\n            \"pulpit\": \"pulpit11\",\n            \"pulpitName\": \"pulpit2 name\"\n        },\n        {\n            \"pulpit\": \"pulpit12\",\n            \"pulpitName\": \"pulpit3 name\"\n        },{\n            \"pulpit\": \"pulpit13\",\n            \"pulpitName\": \"pulpit1 name\"\n        },\n        {\n            \"pulpit\": \"pulpit14\",\n            \"pulpitName\": \"pulpit2 name\"\n        },\n        {\n            \"pulpit\": \"pulpit15\",\n            \"pulpitName\": \"pulpit3 name\"\n        },{\n            \"pulpit\": \"pulpit16\",\n            \"pulpitName\": \"pulpit1 name\"\n        },\n        {\n            \"pulpit\": \"pulpit17\",\n            \"pulpitName\": \"pulpit2 name\"\n        },\n        {\n            \"pulpit\": \"pulpit18\",\n            \"pulpitName\": \"pulpit3 name\"\n        },{\n            \"pulpit\": \"pulpit19\",\n            \"pulpitName\": \"pulpit1 name\"\n        },\n        {\n            \"pulpit\": \"pulpit20\",\n            \"pulpitName\": \"pulpit2 name\"\n        },\n        {\n            \"pulpit\": \"pulpi21\",\n            \"pulpitName\": \"pulpit3 name\"\n        },{\n            \"pulpit\": \"pulpit22\",\n            \"pulpitName\": \"pulpit1 name\"\n        },\n        {\n            \"pulpit\": \"pulpit23\",\n            \"pulpitName\": \"pulpit2 name\"\n        },\n        {\n            \"pulpit\": \"pulpit24\",\n            \"pulpitName\": \"pulpit3 name\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/faculties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_pulpits",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pulpit\": \"pulpit\",\n    \"pulpitName\": \"pulpit name\",\n    \"facultyId\": \"CS\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/pulpits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_pulpits_with_faculty",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pulpit\": \"pulpit55\",\n    \"pulpitName\": \"pulpit name\",\n    \"faculty\": {\n        \"faculty\": \"CS2\",\n        \"facultyName\": \"cyber sport\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/pulpits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_subjects",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"subject\": \"subject\",\n    \"subjectName\": \"subject name\",\n    \"pulpitId\": \"pulpit\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/subjects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"subjects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_teachers",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"teacher\": \"teacher\",\n    \"teacherName\": \"teacher name\",\n    \"pulpitId\": \"pulpit\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/teachers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"teachers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_auditoriums",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"auditorium\": \"auditorium\",\n    \"auditoriumName\": \"auditorium name\",\n    \"auditoriumTypeId\": \"LK\",\n    \"auditoriumCapacity\": 100\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post_auditorium_types",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"auditoriumType\": \"auditoriumType\",\n    \"auditoriumTypeName\": \"auditoriumType name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriumtypes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriumtypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_faculties",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"faculty\": \"CS\",\n    \"facultyName\": \"no cyber sport\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/faculties",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_pulpits",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pulpit\": \"pulpit\",\n    \"pulpitName\": \"no pulpit name\",\n    \"facultyId\": \"IT\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/pulpits",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpits"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_subjects",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"subject\": \"subject\",\n    \"subjectName\": \"no subject name\",\n    \"pulpitId\": \"POIT\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/subjects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"subjects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_teachers",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"teacher\": \"teacher\",\n    \"teacherName\": \"no teacher name\",\n    \"pulpitId\": \"POIT\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/teachers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"teachers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_auditoriums",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"auditorium\": \"auditorium\",\n    \"auditoriumName\": \"no auditorium name\",\n    \"auditoriumTypeId\": \"auditoriumType\",\n    \"auditoriumCapacity\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriums",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "put_auditorium_types",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"auditoriumType\": \"auditoriumType\",\n    \"auditoriumTypeName\": \"no auditoriumType name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriumtypes",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriumtypes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transaction",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/transaction",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"transaction"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_faculties",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/faculties/CS",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"faculties",
+								"CS"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_pulpit",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/pulpits/pulpit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"pulpits",
+								"pulpit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_teachers",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/teachers/teacher",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"teachers",
+								"teacher"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_subject",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/subjects/subject",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"subjects",
+								"subject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_auditoriums",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriums/auditorium",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriums",
+								"auditorium"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete_auditorium_types",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/auditoriumtypes/auditoriumType",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auditoriumtypes",
+								"auditoriumType"
 							]
 						}
 					},
