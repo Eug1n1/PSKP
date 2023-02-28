@@ -31,12 +31,12 @@ router.get('/api/auditoriumtypes', async (_, res) => {
 })
 
 router.get('/api/faculties/:faculty([A-Za-z]+)/subjects', async (req, res) => {
-    const faculty = req.params.faculty
+    const { faculty } = req.params
 
     res.json(
         await prisma.faculty.findUnique({
             where: {
-                faculty: faculty,
+                faculty,
             },
             select: {
                 faculty: true,
@@ -57,26 +57,28 @@ router.get('/api/faculties/:faculty([A-Za-z]+)/subjects', async (req, res) => {
 
 // fluent api
 router.get('/api/faculty/:faculty/pulpits', async (req, res) => {
-    let faculty = req.params.faculty
+    let { faculty } = req.params
 
     res.json(
-        await prisma.faculty.findUnique({
-            where: {
-                faculty: faculty
-            }
-        }).pulpits()
+        await prisma.faculty
+            .findUnique({
+                where: {
+                    faculty,
+                },
+            })
+            .pulpits()
     )
 })
 
 router.get(
     '/api/auditoriumtypes/:auditoriumType([A-Za-z]+)/auditoriums',
     async (req, res) => {
-        const auditoriumType = req.params.auditoriumType
+        const { auditoriumType } = req.params
 
         res.json(
             await prisma.auditoriumType.findUnique({
                 where: {
-                    auditoriumType: auditoriumType,
+                    auditoriumType,
                 },
                 select: {
                     auditoriumType: true,
@@ -160,7 +162,8 @@ router.get('/api/auditoriumsSameCount', async (_, res) => {
 
 router.get('/api/pulpit_page', async (req, res) => {
     let take = 4
-    let page = req.query.page
+    let { page } = req.query
+
     if (page < 0) {
         res.status(400)
         res.json({
@@ -171,7 +174,7 @@ router.get('/api/pulpit_page', async (req, res) => {
 
     let pulpits = await prisma.pulpit.findMany({
         take: take,
-        skip: req.query.page * take,
+        skip: page * take,
         include: {
             _count: {
                 select: {

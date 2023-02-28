@@ -3,14 +3,15 @@ const { prisma } = require('../db')
 
 router.post('/api/faculties', async (req, res) => {
     try {
-        if (req.body.pulpits) {
+        let {faculty, facultyName, pulpits} = req.body
+        if (pulpits) {
             res.json(
                 await prisma.faculty.create({
                     data: {
-                        faculty: req.body.faculty,
-                        facultyName: req.body.facultyName,
+                        faculty,
+                        facultyName,
                         pulpits: {
-                            create: req.body.pulpits,
+                            create: pulpits,
                         },
                     },
                     include: {
@@ -29,18 +30,19 @@ router.post('/api/faculties', async (req, res) => {
 
 router.post('/api/pulpits', async (req, res) => {
     try {
-        if (req.body.faculty) {
+        let {pulpit, pulpitName, faculty} = req.body
+        if (faculty) {
             res.json(
                 await prisma.pulpit.create({
                     data: {
-                        pulpit: req.body.pulpit,
-                        pulpitName: req.body.pulpitName,
+                        pulpit,
+                        pulpitName,
                         faculty: {
                             connectOrCreate: {
                                 where: {
-                                    faculty: req.body.faculty.faculty,
+                                    faculty: faculty.faculty,
                                 },
-                                create: req.body.faculty,
+                                create: faculty,
                             },
                         },
                     },
