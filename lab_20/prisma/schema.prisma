@@ -1,0 +1,120 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+model Employee {
+    id Int @id @default(autoincrement())
+
+    name      String
+    birthdate DateTime
+    position  String
+    address   String
+    phone     String
+
+    Delivery Delivery[]
+    Purchase Purchase[]
+}
+
+model Provider {
+    id Int @id @default(autoincrement())
+
+    name           String
+    address        String
+    phone          String
+    contact_person String?
+
+    Delivery Delivery[]
+}
+
+model Client {
+    id Int @id @default(autoincrement())
+
+    name           String
+    address        String
+    phone          String
+    contact_person String?
+    Purchase       Purchase[]
+}
+
+model Document {
+    id Int @id @default(autoincrement())
+
+    documentType   String
+    documentNumber String
+
+    Delivery Delivery[]
+    Purchase Purchase[]
+}
+
+model Item {
+    id Int @id @default(autoincrement())
+
+    name           String
+    amount         Int
+    expirationDate DateTime
+
+    Deliveries Delivery[]
+
+    MeasureUnit   MeasureUnit @relation(fields: [measureUnitId], references: [id])
+    measureUnitId Int
+    Purchase      Purchase[]
+}
+
+model MeasureUnit {
+    id Int @id @default(autoincrement())
+
+    Item Item[]
+
+    shortName   String @unique
+    description String
+}
+
+model Delivery {
+    id Int @id @default(autoincrement())
+
+    amount       Int
+    price        Float
+    person       String
+    deliveryDate DateTime
+
+    Employee   Employee @relation(fields: [employeeId], references: [id])
+    employeeId Int
+
+    Document   Document @relation(fields: [documentId], references: [id])
+    documentId Int
+
+    Provider   Provider @relation(fields: [providerId], references: [id])
+    providerId Int
+
+    Item   Item @relation(fields: [itemId], references: [id])
+    itemId Int
+}
+
+model Purchase {
+    id Int @id @default(autoincrement())
+
+    amount       Int
+    price        Float
+    person       String
+    deliveryDate DateTime
+
+    Employee   Employee @relation(fields: [employeeId], references: [id])
+    employeeId Int
+
+    Document   Document @relation(fields: [documentId], references: [id])
+    documentId Int
+
+    Client Client @relation(fields: [clientId], references: [id])
+    clientId Int
+
+    Item     Item @relation(fields: [itemId], references: [id])
+    itemId   Int
+}
