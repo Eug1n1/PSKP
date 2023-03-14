@@ -4,20 +4,30 @@ class ItemsController {
     static async getAll(_, res) {
         const items = await prisma.item.findMany()
 
-        res.render('items.hbs', { items: items })
+        res.render('items', { items: items })
     }
 
     static async getOneById(req, res) {
         try {
             const id = Number(req.params.id)
 
-            const items = await prisma.item.findUniqueOrThrow({
+            const item = await prisma.item.findUniqueOrThrow({
                 where: {
                     id
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    amount: true,
+                    MeasureUnit: {
+                        select: {
+                            shortName: true
+                        }
+                    }
                 }
             })
 
-            res.render('items.hbs', { items: items })
+            res.render('item', { item: item })
         } catch (e) {
             res.json(e)
         }
@@ -51,6 +61,7 @@ class ItemsController {
         try {
             const id = Number(req.params.id)
 
+            console.log(req.params)
             res.json(await prisma.item.update({
                 where: {
                     id
