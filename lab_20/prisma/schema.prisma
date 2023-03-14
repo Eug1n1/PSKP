@@ -59,7 +59,7 @@ model Item {
 
     name           String
     amount         Int
-    expirationDate DateTime
+    expirationDate DateTime @default(now())
 
     Deliveries Delivery[]
 
@@ -71,10 +71,10 @@ model Item {
 model MeasureUnit {
     id Int @id @default(autoincrement())
 
-    Item Item[]
+    Items Item[]
 
     shortName   String @unique
-    description String
+    description String @default("")
 }
 
 model Delivery {
