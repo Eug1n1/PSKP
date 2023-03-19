@@ -2,7 +2,18 @@ const { prisma } = require('../db')
 
 class ItemsController {
     static async getAll(_, res) {
-        const items = await prisma.item.findMany()
+        const items = await prisma.item.findMany({
+            select: {
+                id: true,
+                name: true,
+                amount: true,
+                MeasureUnit: {
+                    select: {
+                        shortName: true
+                    }
+                }
+            }
+        })
 
         res.render('items', { items: items })
     }
@@ -27,18 +38,19 @@ class ItemsController {
                 }
             })
 
-            res.render('item', { item: item })
+            res.render('itemById', { item })
         } catch (e) {
-            res.json(e)
+            console.log(1)
+            res.status(404).end()
         }
     }
 
     static async create(req, res) {
         try {
-            res.json(await prisma.item.create({
+            const item = await prisma.item.create({
                 data: {
                     name: req.body.name,
-                    amount: req.body.amount,
+                    amount: Number(req.body.amount),
                     MeasureUnit: {
                         connectOrCreate: {
                             where: {
@@ -49,8 +61,20 @@ class ItemsController {
                             }
                         }
                     }
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    amount: true,
+                    MeasureUnit: {
+                        select: {
+                            shortName: true
+                        }
+                    }
                 }
-            }))
+            })
+
+            res.redirect(`/items/${item.id}`)
         } catch (e) {
             console.log(e)
             res.json(e)
@@ -61,8 +85,7 @@ class ItemsController {
         try {
             const id = Number(req.params.id)
 
-            console.log(req.params)
-            res.json(await prisma.item.update({
+            const item = await prisma.item.update({
                 where: {
                     id
                 },
@@ -80,7 +103,9 @@ class ItemsController {
                         }
                     }
                 }
-            }))
+            })
+
+            res.redirect(`/items/${item.id}`)
         } catch (e) {
             console.log(e)
             res.json(e)
@@ -91,11 +116,23 @@ class ItemsController {
         try {
             const id = Number(req.params.id)
 
-            res.json(await prisma.item.delete({
+            const item = await prisma.item.delete({
                 where: {
                     id
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    amount: true,
+                    MeasureUnit: {
+                        select: {
+                            shortName: true
+                        }
+                    }
                 }
-            }))
+            })
+
+            res.json(item)
         } catch (e) {
             res.json(e)
         }

@@ -8,7 +8,7 @@ const providersRouter = require('./providerRouter')
 const router = express.Router()
 
 router.use('/items', itemsRouter)
-router.use('/measure-units', measureUnitsRouter)
+router.use('/units', measureUnitsRouter)
 router.use('/clients', clientsRouter)
 router.use('/providers', providersRouter)
 

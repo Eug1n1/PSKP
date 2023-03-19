@@ -29,7 +29,7 @@ model Provider {
     name           String
     address        String
     phone          String
-    contact_person String?
+    contactPerson String?
 
     Delivery Delivery[]
 }
@@ -40,7 +40,7 @@ model Client {
     name           String
     address        String
     phone          String
-    contact_person String?
+    contactPerson String?
     Purchase       Purchase[]
 }
 

@@ -3,7 +3,17 @@ const { prisma } = require('../db')
 class ClientsController {
     static async getAll(_, res) {
         try {
-            res.json(await prisma.client.findMany())
+            const clients = await prisma.client.findMany({
+                select: {
+                    id: true,
+                    name: true,
+                    address: true,
+                    contactPerson: true,
+                    phone: true
+                }
+            })
+
+            res.render('clients', { clients })
         } catch (e) {
             console.log(e)
             res.status(400).json(e)
@@ -13,12 +23,20 @@ class ClientsController {
     static async getOneById(req, res) {
         try {
             const id = Number(req.params.id)
-
-            res.json(await prisma.client.findUniqueOrThrow({
+            const client = await prisma.client.findUniqueOrThrow({
                 where: {
                     id
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    address: true,
+                    contactPerson: true,
+                    phone: true
                 }
-            }))
+            })
+
+            res.render('clientById', { client })
         } catch (e) {
             console.log(e)
             res.status(400).json(e)
@@ -27,11 +45,13 @@ class ClientsController {
 
     static async create(req, res) {
         try {
-            res.json(await prisma.client.create({
+            const client = await prisma.client.create({
                 data: {
                     ...req.body
                 }
-            }))
+            })
+
+            res.redirect(`/clients/${client.id}`)
         } catch (e) {
             console.log(e)
             res.status(400).json(e)
@@ -41,15 +61,16 @@ class ClientsController {
     static async update(req, res) {
         try {
             const id = Number(req.params.id)
-
-            res.json(await prisma.client.update({
+            const client = await prisma.client.update({
                 where: {
                     id
                 },
                 data: {
                     ...req.body
                 }
-            }))
+            })
+
+            res.redirect(`/clients/${client.id}`)
         } catch (e) {
             console.log(e)
             res.status(400).json(e)

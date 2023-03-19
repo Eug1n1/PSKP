@@ -8,21 +8,19 @@
 
 <body>
 
-    {{#if items}}
+    {{#if units}}
         <table>
             <tr>
                 <th>id</th>
-                <th>name</th>
-                <th>amount</th>
-                <th>unit</th>
+                <th>shortName</th>
+                <th>description</th>
             </tr>
 
-            {{#each items}}
+            {{#each units}}
                 <tr>
                     <td align="center">{{this.id}}</td>
-                    <td align="center">{{this.name}}</td>
-                    <td align="center">{{this.amount}}</td>
-                    <td align="center">{{this.MeasureUnit.shortName}}</td>
+                    <td align="center">{{this.shortName}}</td>
+                    <td align="center">{{this.description}}</td>
                 </tr>
             {{/each}}
         </table>

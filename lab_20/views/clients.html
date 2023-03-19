@@ -8,25 +8,25 @@
 
 <body>
 
-    {{#if items}}
         <table>
             <tr>
                 <th>id</th>
                 <th>name</th>
-                <th>amount</th>
-                <th>unit</th>
+                <th>address</th>
+                <th>phone</th>
+                <th>contactPerson</th>
             </tr>
 
-            {{#each items}}
+            {{#each clients}}
                 <tr>
                     <td align="center">{{this.id}}</td>
                     <td align="center">{{this.name}}</td>
-                    <td align="center">{{this.amount}}</td>
-                    <td align="center">{{this.MeasureUnit.shortName}}</td>
+                    <td align="center">{{this.address}}</td>
+                    <td align="center">{{this.phone}}</td>
+                    <td align="center">{{this.contactPerson}}</td>
                 </tr>
             {{/each}}
         </table>
-    {{/if}}
 </body>
 
 </html>

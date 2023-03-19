@@ -3,7 +3,17 @@ const { prisma } = require('../db')
 class ProvidersController {
     static async getAll(_, res) {
         try {
-            res.json(await prisma.provider.findMany())
+            const providers = await prisma.provider.findMany({
+                select: {
+                    id: true,
+                    name: true,
+                    address: true,
+                    contactPerson: true,
+                    phone: true
+                }
+            })
+
+            res.render('providers', { providers: providers })
         } catch (e) {
             console.log(e)
             res.status(400).json(e)
@@ -13,12 +23,20 @@ class ProvidersController {
     static async getOneById(req, res) {
         try {
             const id = Number(req.params.id)
-
-            res.json(await prisma.provider.findUniqueOrThrow({
+            const provider = await prisma.provider.findUniqueOrThrow({
                 where: {
                     id
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    address: true,
+                    contactPerson: true,
+                    phone: true
                 }
-            }))
+            })
+
+            res.render('providerById', { provider })
         } catch (e) {
             console.log(e)
             res.status(400).json(e)
@@ -27,11 +45,16 @@ class ProvidersController {
 
     static async create(req, res) {
         try {
-            res.json(await prisma.provider.create({
+            const provider = await prisma.provider.create({
                 data: {
                     ...req.body
+                },
+                select: {
+                    id: true
                 }
-            }))
+            })
+
+            res.redirect(`/providers/${provider.id}`)
         } catch (e) {
             console.log(e)
             res.status(400).json(e)
@@ -42,14 +65,16 @@ class ProvidersController {
         try {
             const id = Number(req.params.id)
 
-            res.json(await prisma.provider.update({
+            const provider = await prisma.provider.update({
                 where: {
                     id
                 },
                 data: {
                     ...req.body
                 }
-            }))
+            })
+
+            res.redirect(`/providers/${provider.id}`)
         } catch (e) {
             console.log(e)
             res.status(400).json(e)

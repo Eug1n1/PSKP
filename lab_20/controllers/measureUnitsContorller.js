@@ -3,7 +3,15 @@ const { prisma } = require('../db')
 class MeasureUnitsController {
     static async getAll(_, res) {
         try {
-            res.json(await prisma.measureUnit.findMany())
+            const units = await prisma.measureUnit.findMany({
+                select: {
+                    id: true,
+                    shortName: true,
+                    description: true,
+                }
+            })
+
+            res.render('units', { units })
         } catch (e) {
             console.log(e)
             res.json(e)
@@ -13,34 +21,48 @@ class MeasureUnitsController {
     static async getOneById(req, res) {
         try {
             const id = Number(req.params.id)
-
-            res.json(await prisma.measureUnit.findUniqueOrThrow({
+            const unit = await prisma.measureUnit.findUniqueOrThrow({
                 where: {
                     id
+                },
+                select: {
+                    id: true,
+                    shortName: true,
+                    description: true,
                 }
-            }))
+            })
+
+            res.render('unitById', { unit })
         } catch (e) {
             console.log(e)
-            res.json(e)
+            res.status(404).end()
         }
     }
 
     static async create(req, res) {
         try {
-            res.json(await prisma.measureUnit.create({
+            const unit = await prisma.measureUnit.create({
                 data: {
                     ...req.body
+                },
+                select: {
+                    id: true,
+                    shortName: true,
+                    description: true,
                 }
-            }))
+            })
+
+
+            res.redirect(`/units/${unit.id}`)
         } catch (e) {
-            console.log(e)
-            res.json(e)
+            res.status(404).end(JSON.stringify(e))
         }
     }
 
     static async update(req, res) {
         try {
             const id = Number(req.params.id)
+
 
             res.json(await prisma.measureUnit.update({
                 where: {
