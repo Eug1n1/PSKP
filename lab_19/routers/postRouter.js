@@ -3,26 +3,33 @@ const { prisma } = require('../db')
 
 router.post('/api/faculties', async (req, res) => {
     try {
-        let {faculty, facultyName, pulpits} = req.body
-        if (pulpits) {
-            res.json(
-                await prisma.faculty.create({
-                    data: {
-                        faculty,
-                        facultyName,
-                        pulpits: {
-                            create: pulpits,
-                        },
+        let { faculty, facultyName, pulpits } = req.body
+        res.json(
+            await prisma.faculty.create({
+                data: {
+                    faculty,
+                    facultyName,
+                    pulpits: {
+                        connectOrCreate: pulpits?.map((pulpit) => {
+                            return {
+                                where: {
+                                    pulpit: pulpit.pulpit,
+                                },
+                                create: {
+                                    pulpit: pulpit.pulpit,
+                                    pulpitName: pulpit.pulpitName
+                                },
+                            };
+                        }),
                     },
-                    include: {
-                        pulpits: true,
-                    },
-                })
-            )
-        } else {
-            res.json(await prisma.faculty.create({ data: req.body }))
-        }
+                },
+                include: {
+                    pulpits: true,
+                },
+            })
+        )
     } catch (e) {
+        console.log(e)
         res.status(400)
         res.json(e)
     }
@@ -30,7 +37,7 @@ router.post('/api/faculties', async (req, res) => {
 
 router.post('/api/pulpits', async (req, res) => {
     try {
-        let {pulpit, pulpitName, faculty} = req.body
+        let { pulpit, pulpitName, faculty } = req.body
         if (faculty) {
             res.json(
                 await prisma.pulpit.create({
