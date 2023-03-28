@@ -1,70 +1,67 @@
 const { prisma } = require('../db')
 
-class MeasureUnitsController {
+class ClientsController {
     static async getAll(_, res) {
         try {
-            const units = await prisma.measureUnit.findMany({
+            const clients = await prisma.employee.findMany({
                 select: {
                     id: true,
-                    shortName: true,
-                    description: true,
+                    name: true,
+                    position: true,
+                    address: true,
+                    phone: true,
                 }
             })
 
-            res.render('units', { units })
+            res.render('employees', { units: clients })
         } catch (e) {
             console.log(e)
-            res.json(e)
+            res.status(400).json(e)
         }
     }
 
     static async getOneById(req, res) {
         try {
             const id = Number(req.params.id)
-            const unit = await prisma.measureUnit.findUniqueOrThrow({
+            const client = await prisma.employee.findUniqueOrThrow({
                 where: {
                     id
                 },
                 select: {
                     id: true,
-                    shortName: true,
-                    description: true,
+                    name: true,
+                    position: true,
+                    address: true,
+                    phone: true,
                 }
             })
 
-            res.render('unitById', { unit })
+            res.render('employeeById', { unit: client })
         } catch (e) {
             console.log(e)
-            res.status(404).end()
+            res.status(400).json(e)
         }
     }
 
     static async create(req, res) {
         try {
-            const unit = await prisma.measureUnit.create({
+            const client = await prisma.employee.create({
                 data: {
                     ...req.body
-                },
-                select: {
-                    id: true,
-                    shortName: true,
-                    description: true,
                 }
             })
 
-
-            res.redirect(`/units/${unit.id}`)
+            res.redirect(`/employees/${client.id}`)
         } catch (e) {
-            res.status(404).end(JSON.stringify(e))
+            console.log(e)
+            res.status(400).json(e)
         }
     }
 
     static async update(req, res) {
         try {
             const id = Number(req.params.id)
-
-
-            const item = await prisma.measureUnit.update({
+            const client = await prisma.employee.update({
                 where: {
                     id
                 },
@@ -73,10 +70,10 @@ class MeasureUnitsController {
                 }
             })
 
-            res.redirect(`/units/${item.id}`)
+            res.redirect(`/employees/${client.id}`)
         } catch (e) {
             console.log(e)
-            res.json(e)
+            res.status(400).json(e)
         }
     }
 
@@ -84,15 +81,16 @@ class MeasureUnitsController {
         try {
             const id = Number(req.params.id)
 
-            res.json(await prisma.measureUnit.delete({
+            res.json(await prisma.employee.delete({
                 where: {
                     id
                 }
             }))
         } catch (e) {
-            res.json(e)
+            console.log(e)
+            res.status(400).json(e)
         }
     }
 }
 
-module.exports = MeasureUnitsController
+module.exports = ClientsController

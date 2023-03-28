@@ -14,7 +14,6 @@ model Employee {
     id Int @id @default(autoincrement())
 
     name      String
-    birthdate DateTime
     position  String
     address   String
     phone     String
@@ -83,7 +82,7 @@ model Delivery {
     amount       Int
     price        Float
     person       String
-    deliveryDate DateTime
+    deliveryDate DateTime @default(now())
 
     Employee   Employee @relation(fields: [employeeId], references: [id])
     employeeId Int
@@ -104,7 +103,7 @@ model Purchase {
     amount       Int
     price        Float
     person       String
-    deliveryDate DateTime
+    purchaseDate DateTime @default(now())
 
     Employee   Employee @relation(fields: [employeeId], references: [id])
     employeeId Int

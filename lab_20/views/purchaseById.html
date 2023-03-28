@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    {{#with delivery}}
+    <form name="" id="entityform">
+        <input id="id" type="number" name="id" onchange="GetById()" value="{{this.id}}">
+        <input id="amount" type="number" name="amount" value="{{this.amount}}">
+        <input id="price" type="number" name="price" value="{{this.price}}">
+        <input id="person" type="text" name="person" value="{{this.person}}">
+        <input id="employeeId" type="number" name="employeeId" value="{{this.employeeId}}">
+        <input id="documentId" type="number" name="documentId" value="{{this.documentId}}">
+        <input id="clientId" type="number" name="clientId" value="{{this.clientId}}">
+        <input id="itemId" type="number" name="itemId" value="{{this.itemId}}">
+
+        <button type="button" onclick="GetById()">get</button>
+        <button type="button" onclick="Post()">post</button>
+        <button type="button" onclick="Put()">put</button>
+        <button type="button" onclick="Delete()">delete</button>
+    </form>
+    {{/with}}
+
+    <pre id="result"></pre>
+
+    <script>
+        const form = document.querySelector('#entityform')
+        const result = document.querySelector('#result')
+
+        function GetById() {
+            const id = document.querySelector('#id').value
+
+            fetch(`/purchases/${id}`, {
+                method: 'GET',
+                redirect: 'follow'
+            })
+                .then(res => {
+                    console.log(res)
+                    if (res.status != 200) {
+                        throw 'not found'
+                    }
+
+                    window.location.href = `/purchases/${id}`
+                })
+                .catch(error => {
+                    result.innerText = 'error: \n'
+                    result.innerText += error
+                })
+        }
+
+        function Post() {
+            const id = document.querySelector('#id').value
+
+            const data = {
+                amount: form.elements['amount'].value,
+                person: form.elements['person'].value,
+                price: form.elements['price'].value,
+                employeeId: form.elements['employeeId'].value,
+                documentId: form.elements['documentId'].value,
+                clientId: form.elements['clientId'].value,
+                itemId: form.elements['itemId'].value,
+            }
+
+            fetch(`/purchases`, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {'Content-Type': 'application/json'},
+                redirect: 'follow'
+            })
+                .then(res => {
+                    console.log(res)
+                    if (res.status != 200) {
+                        throw 'error'
+                    }
+
+                    if (res.redirected) {
+                        window.location.href = res.url
+                    }
+                })
+                .catch(error => {
+                    result.innerText = 'error \n'
+                })
+
+        }
+
+        function Put() {
+            const id = document.querySelector('#id').value
+
+            const data = {
+                amount: form.elements['amount'].value,
+                person: form.elements['person'].value,
+                price: form.elements['price'].value,
+                employeeId: form.elements['employeeId'].value,
+                documentId: form.elements['documentId'].value,
+                clientId: form.elements['clientId'].value,
+                itemId: form.elements['itemId'].value,
+            }
+
+            fetch(`/purchases/${id}`, {
+                method: 'PUT',
+                body: JSON.stringify(data),
+                headers: {'Content-Type': 'application/json'},
+                redirect: 'follow'
+            })
+                .then(res => {
+                    console.log(res)
+                    if (res.redirected) {
+                        window.location.href = res.url
+                    }
+                })
+                .catch(error => {
+                    result.innerText = 'error: \n'
+                    result.innerText += error
+                })
+        }
+
+        function Delete() {
+            const id = document.querySelector('#id').value
+
+            fetch(`/purchases/${id}`, {
+                method: 'DELETE',
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    result.innerText = 'deleted: \n'
+                    result.innerText += JSON.stringify(data, null, '\t')
+                })
+                .catch(error => {
+                    result.innerText = 'error: \n'
+                    result.innerText = 'error'
+                })
+        }
+    </script>
+</body>
+
+</html>

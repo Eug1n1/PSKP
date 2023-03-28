@@ -3,15 +3,15 @@ const { prisma } = require('../db')
 class MeasureUnitsController {
     static async getAll(_, res) {
         try {
-            const units = await prisma.measureUnit.findMany({
+            const units = await prisma.document.findMany({
                 select: {
                     id: true,
-                    shortName: true,
-                    description: true,
+                    documentType: true,
+                    documentNumber: true,
                 }
             })
 
-            res.render('units', { units })
+            res.render('documents', { units })
         } catch (e) {
             console.log(e)
             res.json(e)
@@ -21,18 +21,18 @@ class MeasureUnitsController {
     static async getOneById(req, res) {
         try {
             const id = Number(req.params.id)
-            const unit = await prisma.measureUnit.findUniqueOrThrow({
+            const unit = await prisma.document.findUniqueOrThrow({
                 where: {
                     id
                 },
                 select: {
                     id: true,
-                    shortName: true,
-                    description: true,
+                    documentNumber: true,
+                    documentType: true,
                 }
             })
 
-            res.render('unitById', { unit })
+            res.render('documentById', { unit })
         } catch (e) {
             console.log(e)
             res.status(404).end()
@@ -41,19 +41,19 @@ class MeasureUnitsController {
 
     static async create(req, res) {
         try {
-            const unit = await prisma.measureUnit.create({
+            const unit = await prisma.document.create({
                 data: {
                     ...req.body
                 },
                 select: {
                     id: true,
-                    shortName: true,
-                    description: true,
+                    documentNumber: true,
+                    documentType: true,
                 }
             })
 
 
-            res.redirect(`/units/${unit.id}`)
+            res.redirect(`/documents/${unit.id}`)
         } catch (e) {
             res.status(404).end(JSON.stringify(e))
         }
@@ -64,7 +64,7 @@ class MeasureUnitsController {
             const id = Number(req.params.id)
 
 
-            const item = await prisma.measureUnit.update({
+            const client = await prisma.document.update({
                 where: {
                     id
                 },
@@ -73,7 +73,7 @@ class MeasureUnitsController {
                 }
             })
 
-            res.redirect(`/units/${item.id}`)
+            res.redirect(`/documents/${client.id}`)
         } catch (e) {
             console.log(e)
             res.json(e)
@@ -84,7 +84,7 @@ class MeasureUnitsController {
         try {
             const id = Number(req.params.id)
 
-            res.json(await prisma.measureUnit.delete({
+            res.json(await prisma.document.delete({
                 where: {
                     id
                 }

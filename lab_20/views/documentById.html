@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    {{#with unit}}
+    <form name="" id="entityform">
+        <input id="id" type="number" name="id" onchange="GetById()" value="{{this.id}}">
+        <input id="type" type="text" name="documentType" value="{{this.documentType}}">
+        <input id="number" type="text" name="documentNumber" value="{{this.documentNumber}}">
+
+        <button type="button" onclick="GetById()">get</button>
+        <button type="button" onclick="Post()">post</button>
+        <button type="button" onclick="Put()">put</button>
+        <button type="button" onclick="Delete()">delete</button>
+    </form>
+    {{/with}}
+
+    <pre id="result"></pre>
+
+    <script>
+        const form = document.querySelector('#entityform')
+        const result = document.querySelector('#result')
+
+        function GetById() {
+            const id = document.querySelector('#id').value
+
+            fetch(`/documents/${id}`, {
+                method: 'GET',
+                redirect: 'follow'
+            })
+                .then(res => {
+                    console.log(res)
+                    if (res.status != 200) {
+                        throw 'not found'
+                    }
+
+                    window.location.href = `/documents/${id}`
+                })
+                .catch(error => {
+                    result.innerText = 'error: \n'
+                    result.innerText += error
+                })
+        }
+
+        function Post() {
+            const id = document.querySelector('#id').value
+
+            const data = {
+                documentType: form.elements['documentType'].value,
+                documentNumber: form.elements['documentNumber'].value,
+            }
+
+            fetch(`/documents`, {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {'Content-Type': 'application/json'},
+                redirect: 'follow'
+            })
+                .then(res => {
+                    console.log(res)
+                    if (res.status != 200) {
+                        throw 'error'
+                    }
+
+                    if (res.redirected) {
+                        window.location.href = res.url
+                    }
+                })
+                .catch(error => {
+                    result.innerText = 'error \n'
+                })
+
+        }
+
+        function Put() {
+            const id = document.querySelector('#id').value
+
+            const data = {
+                documentType: form.elements['documentType'].value,
+                documentNumber: form.elements['documentNumber'].value,
+            }
+
+            fetch(`/documents/${id}`, {
+                method: 'PUT',
+                body: JSON.stringify(data),
+                headers: {'Content-Type': 'application/json'},
+                redirect: 'follow'
+            })
+                .then(res => {
+                    console.log(res)
+                    if (res.redirected) {
+                        window.location.href = res.url
+                    }
+                })
+                .catch(error => {
+                    result.innerText = 'error: \n'
+                    result.innerText += error
+                })
+        }
+
+        function Delete() {
+            const id = document.querySelector('#id').value
+
+            fetch(`/documents/${id}`, {
+                method: 'DELETE',
+            })
+                .then(res => res.json())
+                .then((data) => {
+                    result.innerText = 'deleted: \n'
+                    result.innerText += JSON.stringify(data, null, '\t')
+                })
+                .catch(error => {
+                    result.innerText = 'error: \n'
+                    result.innerText = 'error'
+                })
+        }
+    </script>
+</body>
+
+</html>

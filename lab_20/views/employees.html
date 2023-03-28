@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+        <table>
+            <tr>
+                <th>id</th>
+                <th>name</th>
+                <th>position</th>
+                <th>address</th>
+                <th>phone</th>
+            </tr>
+
+            {{#each units}}
+                <tr>
+                    <td align="center">{{this.id}}</td>
+                    <td align="center">{{this.name}}</td>
+                    <td align="center">{{this.position}}</td>
+                    <td align="center">{{this.address}}</td>
+                    <td align="center">{{this.phone}}</td>
+                </tr>
+            {{/each}}
+        </table>
+</body>
+
+</html>

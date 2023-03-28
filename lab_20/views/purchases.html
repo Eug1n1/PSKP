@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+        <table>
+            <tr>
+                <th>id</th>
+                <th>amount</th>
+                <th>price</th>
+                <th>person</th>
+                <th>deliveryDate</th>
+                <th>employeeId</th>
+                <th>documentId</th>
+                <th>clientId</th>
+                <th>itemId</th>
+            </tr>
+
+            {{#each deliveries}}
+                <tr>
+                    <td align="center">{{this.id}}</td>
+                    <td align="center">{{this.amount}}</td>
+                    <td align="center">{{this.price}}</td>
+                    <td align="center">{{this.person}}</td>
+                    <td align="center">{{this.purchaseDate}}</td>
+                    <td align="center">{{this.employeeId}}</td>
+                    <td align="center">{{this.documentId}}</td>
+                    <td align="center">{{this.clientId}}</td>
+                    <td align="center">{{this.itemId}}</td>
+                </tr>
+            {{/each}}
+        </table>
+</body>
+
+</html>
