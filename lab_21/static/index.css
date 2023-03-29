@@ -9,7 +9,7 @@
 
 form {
     width: 100%;
-    margin-bottom: 50px;
+    /* margin-bottom: 50px; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,6 +44,7 @@ form {
     padding: 10px;
     margin: 5px;
     width: 100%;
+    border-style: none;
 
     justify-content: space-around;
     display: flex;

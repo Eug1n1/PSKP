@@ -16,28 +16,51 @@ app.engine('.html', engine({ extname: '.html' }));
 app.set('view engine', '.html');
 app.set('views', './views');
 
+const helpers = {
+    cancel(action, method) {
+        return `<button type="submit" formaction="${action}" formmethod="${method}">cancel</button>`
+    }
+}
+
 app.get('/', (req, res) => {
     const contacts = JSON.parse(readFileSync(DB_FILE_PATH))
+
     res.render('index', { contacts })
 })
 
 app.get('/add', (req, res) => {
     const contacts = JSON.parse(readFileSync(DB_FILE_PATH))
-    res.render('add', { data: { contacts } })
+
+    res.render('add', {
+        data: {
+            contacts
+        },
+        helpers
+    })
 })
 
 app.get('/update', (req, res) => {
-    const contact = req.query
+    const id = req.query.id
+
     const contacts = JSON.parse(readFileSync(DB_FILE_PATH))
 
-    res.render('update', { data: { contact, contacts } })
+    const index = contacts.findIndex(e => e.id === id)
+    const contact = contacts[index]
+
+    res.render('update', {
+        data: {
+            contact,
+            contacts,
+        },
+        helpers
+    })
 })
 
 app.post('/add', (req, res) => {
     try {
         const contact = req.body
 
-        if (!contact) {
+        if (!contact.name || !contact.phone) {
             throw { "Error": "no data" }
         }
 
@@ -48,12 +71,10 @@ app.post('/add', (req, res) => {
 
         writeFileSync(DB_FILE_PATH, JSON.stringify(contacts, null, '\t'))
 
-        // res.json(contacts) // TODO: redirect
-        // res.render('index', { data: { contacts, contact } })
         res.redirect('/')
     } catch (e) {
         console.log(e)
-        res.json(e)
+        res.render('error', { error: JSON.stringify(e) })
     }
 })
 
@@ -62,7 +83,7 @@ app.post('/update/:id', (req, res) => {
         const id = req.params.id
         const contact = req.body
 
-        if (!contact) {
+        if (!contact.name || !contact.phone) {
             throw { "Error": "no data" }
         }
 
@@ -82,17 +103,13 @@ app.post('/update/:id', (req, res) => {
         res.redirect('/')
     } catch (e) {
         console.log(e)
-        res.json(e)
+        res.render('error', { error: JSON.stringify(e) })
     }
 })
 
 app.post('/delete/:id', (req, res) => {
     try {
         const id = req.params.id
-
-        // if (!id) {
-        //     throw { "Error": "no id" }
-        // }
 
         const contacts = JSON.parse(readFileSync(DB_FILE_PATH))
         const index = contacts.findIndex(e => e.id === id)
@@ -101,7 +118,7 @@ app.post('/delete/:id', (req, res) => {
             throw { "Error": "element not found" }
         }
 
-        let element = contacts[index]
+        // let element = contacts[index]
         contacts.splice(index, 1)
 
         writeFileSync(DB_FILE_PATH, JSON.stringify(contacts, null, '\t'))
@@ -109,7 +126,7 @@ app.post('/delete/:id', (req, res) => {
         res.redirect('/')
     } catch (e) {
         console.log(e)
-        res.json(e)
+        res.render('error', { error: JSON.stringify(e) })
     }
 })
 

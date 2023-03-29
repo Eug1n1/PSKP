@@ -1,5 +1,7 @@
 {{#each data.contacts}}
-{{>contact_btn}}
+<form method="get" action="/update?id={{id}}&name={{name}}&phone={{phone}}">
+    {{>contact_btn}}
+</form>
 {{/each}}
 
 <form method="POST">
@@ -13,6 +15,7 @@
     <div class="form_btns">
         <button type="submit" formaction="/update/{{data.contact.id}}" formmethod="post">update</button>
         <button type="submit" formaction="/delete/{{data.contact.id}}" formmethod="post">delete</button>
-        <button type="submit" formaction="/" formmethod="get">cancel</button>
+        <!-- <button type="submit" formaction="/" formmethod="get">cancel</button> -->
+        {{{cancel '/' 'get'}}}
     </div>
 </form>

@@ -1,5 +1,7 @@
 {{#each contacts}}
-{{>contact_btn}}
+<form method="get" action="/update?id='{{id}}'">
+    {{>contact_btn}}
+</form>
 {{/each}}
 
 <form method="get" action="/add">
