@@ -1,1 +1,18 @@
-<h1>update</h1>
+{{#each data.contacts}}
+{{>contact_btn}}
+{{/each}}
+
+<form method="POST">
+    <div class="form_inputs">
+        <label for="name">name</label>
+        <input name="name" type="text" id="name" value="{{data.contact.name}}">
+        <label for="phone">phone</label>
+        <input name="phone" type="text" id="phone" value="{{data.contact.phone}}">
+    </div>
+
+    <div class="form_btns">
+        <button type="submit" formaction="/update/{{data.contact.id}}" formmethod="post">update</button>
+        <button type="submit" formaction="/delete/{{data.contact.id}}" formmethod="post">delete</button>
+        <button type="submit" formaction="/" formmethod="get">cancel</button>
+    </div>
+</form>

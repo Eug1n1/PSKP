@@ -1,1 +1,17 @@
-<h1>add</h1>
+{{#each data.contacts}}
+{{>contact_btn}}
+{{/each}}
+
+<form method="POST">
+    <div class="form_inputs">
+        <label for="name">name</label>
+        <input name="name" type="text" value="{{name}}">
+        <label for="phone">phone</label>
+        <input name="phone" type="tel" value="{{phone}}">
+    </div>
+
+    <div class="form_btns">
+        <button type="submit" formaction="/add" formmethod="post">add</button>
+        <button type="submit" formaction="/" formmethod="get">cancel</button>
+    </div>
+</form>

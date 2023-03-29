@@ -1,5 +1,6 @@
 {
   "name": "lab_21",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,7 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "express-handlebars": "^7.0.2"
+    "express-handlebars": "^7.0.2",
+    "nanoid": "^4.0.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.21"
