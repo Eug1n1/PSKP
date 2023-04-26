@@ -1,0 +1,7 @@
+.login_form {
+    width: 30%;
+    margin: auto;
+
+    display: flex;
+    flex-direction: column;
+}
