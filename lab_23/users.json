@@ -1,7 +1,14 @@
 [
-    {
-        "username": "123123",
-        "password": "123123",
-        "email": "aboba@milo.ru"
-    }
+	{
+		"username": "123123",
+		"password": "123123"
+	},
+	{
+		"username": "1231231",
+		"password": "123123"
+	},
+	{
+		"username": "12312311",
+		"password": "123123"
+	}
 ]

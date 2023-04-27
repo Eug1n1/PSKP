@@ -33,19 +33,19 @@ passport.use(new Strategy((username, password, done) => {
 
     const index = users.findIndex(e => e.username === username)
     if (index === -1) {
-        return done(null, false, { "Error": "incorrect credentials" })
+        return done(null, false, { 'Error': 'incorrect credentials' })
     }
 
     const user = users[index]
 
     if (user.password !== password) {
-        return done(null, false, { "Error": "incorrect credentials" })
+        return done(null, false, { 'Error': 'incorrect credentials' })
     }
 
     return done(null, user)
 }))
 
-app.get('/login', (req, res) => {
+app.get('/login', (_req, res) => {
     res.sendFile(join(__dirname, './views/login.html'))
 })
 
@@ -55,11 +55,12 @@ app.post('/login', passport.authenticate('local', {
 }))
 
 app.get('/resource', (req, res) => {
-    if (!req.user) {
-        res.redirect('/login')
+    if (req.user) {
+        return res.end(`resource owned by ${req.user.username}`)
     }
 
-    res.end(`resource owned by ${req.user.username}`)
+    res.writeHead(401, 'unauthorized')
+    res.end('unauthorized')
 })
 
 app.get('/logout', (req, res, next) => {
