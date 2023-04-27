@@ -1,119 +1,168 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
 import cookieParser from 'cookie-parser'
-import { readFileSync, writeFileSync } from 'fs'
+import { PrismaClient } from '@prisma/client'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
+import passport from 'passport'
+
+const prisma = new PrismaClient()
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-const DB_PATH = join(__dirname, './users.json')
-
-const secret = 'secret'
+const atSecret = 'at_secret'
+const rtSecret = 'rt_secret'
 
 const app = express()
 
 app.use(express.urlencoded({ extended: true }))
-app.use(cookieParser())
 
-function authenticateToken(req, res, next) {
-    const authorization = req.headers['authorization']
-    if (authorization == null) {
-        return res.sendStatus(401)
+async function getTokens(payload) {
+    const tokens = {
+        accessToken: jwt.sign(payload, atSecret, { expiresIn: '30s' }),
+        refreshToken: jwt.sign(payload, rtSecret, { expiresIn: '10d' }),
     }
 
-    jwt.verify(authorization.split(' ')[1], secret, (err, user) => {
-        if (err) {
+    await prisma.user.update({
+        where: {
+            username: payload.username,
+        },
+        data: {
+            rt: tokens.refreshToken,
+        },
+    })
+
+    return tokens
+}
+
+function jwtRefreshStrategy(req, res, next) {
+    try {
+        const token = req.headers['authorization'].split(' ')?.[1]
+
+        if (!token) {
             return res.writeHead(401, 'unauthorized').end('unauthorized')
         }
 
+        const user = jwt.verify(token, rtSecret)
+        req.user = { ...user, token }
+
+        next()
+    } catch (e) {
+        if (e instanceof jwt.TokenExpiredError) {
+            return res.writeHead(401, 'invalid_token').end('invalid token')
+        }
+
+        return res.writeHead(401).end()
+    }
+}
+
+function jwtStrategy(req, res, next) {
+    try {
+        const token = req.headers['authorization'].split(' ')?.[1]
+
+        if (!token) {
+            return res.writeHead(401, 'unauthorized').end('unauthorized')
+        }
+
+        const user = jwt.verify(token, atSecret)
         req.user = user
 
         next()
-    })
+    } catch (e) {
+        if (e instanceof jwt.TokenExpiredError) {
+            return res.writeHead(401, 'invalid_token').end('invalid token')
+        }
+
+        res.writeHead(401)
+    }
 }
 
-app.get('/login', (_req, res) => {
+app.get('/login', function (_, res) {
     res.sendFile(join(__dirname, './views/login.html'))
 })
 
-app.post('/login', (req, res) => {
-    const users = JSON.parse(readFileSync(DB_PATH))
-
-    const index = users.findIndex((e) => e.username === req.body.username)
-    if (index === -1) {
-        return res
-            .writeHead(401, 'incorrect credentials')
-            .end('incorrect credentials')
-    }
-
-    const user = users[index]
-
-    if (user.password !== req.body.password) {
-        return res
-            .writeHead(401, 'incorrect credentials')
-            .end('incorrect credentials')
-    }
-
-    delete user['password']
-    const tokens = {
-        access: jwt.sign({ username: user.username }, secret, {
-            expiresIn: '10m',
-        }),
-        refresh: jwt.sign({ username: user.username }, secret, {
-            expiresIn: '24h',
-        }),
-    }
-
-    res.cookie('accessToken', tokens.access, {
-        httpOnly: true,
-        sameSite: true,
-    })
-    res.cookie('refreshToken', tokens.refresh, {
-        httpOnly: true,
-        sameSite: true,
+app.post('/login', async function (req, res) {
+    const user = await prisma.user.findFirst({
+        where: {
+            username: req.body.username,
+            password: req.body.password,
+        },
+        select: {
+            username: true,
+        },
     })
 
+    if (!user) {
+        return res.writeHead(401, 'bad_credentials').end('bad credentials')
+    }
+
+    const tokens = await getTokens(user)
     res.json(tokens)
 })
 
-app.get('/resource', authenticateToken, (req, res) => {
-    res.end(`resource owned by ${req.payload.username}`)
-})
+app.post('/reg', async function (req, res) {
+    let user = await prisma.user.findFirst({
+        where: {
+            username: req.body.username,
+        },
+    })
 
-app.get('/logout', (req, res, next) => {
-    res.clearCookie('tokens')
-    res.end()
-})
-
-app.post('/reg', (req, res) => {
-    const user = req.body
-    const users = JSON.parse(readFileSync(DB_PATH))
-
-    const index = users.findIndex((e) => e.username === user.username)
-    if (index !== -1) {
-        return res.writeHead(401, 'bad credentials').end('bad credentials')
+    if (user) {
+        return res.writeHead(409).end()
     }
 
-    users.push({ username: user.username, password: user.password })
-    writeFileSync(DB_PATH, JSON.stringify(users, null, '\t'))
+    user = await prisma.user.create({
+        data: {
+            username: req.body.username,
+            password: req.body.password,
+        },
+        select: {
+            username: true,
+        },
+    })
 
-    // delete user['password']
-    const tokens = {
-        access: jwt.sign({ username: user.username }, secret, {
-            expiresIn: '10m',
-        }),
-        refresh: jwt.sign({ username: user.username }, secret, {
-            expiresIn: '24h',
-        }),
+    const tokens = await getTokens(user)
+    res.status(201).json(tokens)
+})
+
+app.post('/refresh', jwtRefreshStrategy, async function (req, res) {
+    const user = await prisma.user.findFirst({
+        where: {
+            username: req.user.username,
+            rt: req.user.token,
+        },
+        select: {
+            username: true,
+        },
+    })
+
+    if (!user) {
+        return res.writeHead(401, 'invalid_token').end('invalid token')
     }
 
-    const cookieOptions = { httpOnly: true, sameSite: true }
-    res.cookie('accessToken', tokens.access, cookieOptions)
-    res.cookie('refreshToken', tokens.refresh, cookieOptions)
-
+    const tokens = await getTokens(user)
     res.json(tokens)
+})
+
+app.post('/logout', jwtStrategy, async function (req, res) {
+    await prisma.user.updateMany({
+        where: {
+            username: req.user.username,
+            rt: {
+                not: null,
+            },
+        },
+        data: {
+            rt: null,
+        },
+    })
+
+    res.end('logout')
+})
+
+app.get('/resource', jwtStrategy, function (req, res) {
+    res.end(`resource owned by ${req.user.username}`)
 })
 
 app.listen(3000)
