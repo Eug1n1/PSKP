@@ -105,6 +105,10 @@ app.post('/login', async function (req, res) {
     res.end('logged')
 })
 
+app.get('/reg', function (_, res) {
+    res.sendFile(join(__dirname, './views/registration.html'))
+})
+
 app.post('/reg', async function (req, res) {
     let user = await prisma.user.findFirst({
         where: {
@@ -113,7 +117,7 @@ app.post('/reg', async function (req, res) {
     })
 
     if (user) {
-        return res.writeHead(409).end()
+        return res.writeHead(409).end('conflict')
     }
 
     user = await prisma.user.create({

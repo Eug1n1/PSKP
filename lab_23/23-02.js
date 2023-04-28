@@ -1,10 +1,8 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
-import cookieParser from 'cookie-parser'
 import { PrismaClient } from '@prisma/client'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
-import passport from 'passport'
 
 const prisma = new PrismaClient()
 
@@ -53,7 +51,7 @@ function jwtRefreshStrategy(req, res, next) {
             return res.writeHead(401, 'invalid_token').end('invalid token')
         }
 
-        return res.writeHead(401).end()
+        return res.writeHead(401).end('unauthorized')
     }
 }
 
@@ -74,7 +72,7 @@ function jwtStrategy(req, res, next) {
             return res.writeHead(401, 'invalid_token').end('invalid token')
         }
 
-        res.writeHead(401)
+        res.writeHead(401).end('unauthorized')
     }
 }
 
@@ -101,6 +99,10 @@ app.post('/login', async function (req, res) {
     res.json(tokens)
 })
 
+app.get('/reg', function (_, res) {
+    res.sendFile(join(__dirname, './views/registration.html'))
+})
+
 app.post('/reg', async function (req, res) {
     let user = await prisma.user.findFirst({
         where: {
@@ -109,7 +111,7 @@ app.post('/reg', async function (req, res) {
     })
 
     if (user) {
-        return res.writeHead(409).end()
+        return res.writeHead(409).end('conflict')
     }
 
     user = await prisma.user.create({
