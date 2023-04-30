@@ -38,7 +38,7 @@ class authContorller {
         })
 
         if (user) {
-            return res.writeHead(409).end('conflict')
+            return res.status(409).json({ code: 409, message: 'conflict' })
         }
 
         user = await prisma.user.create({
@@ -58,15 +58,15 @@ class authContorller {
         res.cookie('accessToken', tokens.accessToken)
         res.cookie('refreshToken', tokens.refreshToken)
 
-        res.status(200).end('registred')
+        res.status(201).json(tokens)
+    }
+
+    getAbilities(req, res) {
+        res.json({ role: req.user['role'] })
     }
 
     async refresh(req, res) {
         const token = req.cookies['refreshToken']
-
-        if (!token) {
-            console.log(2)
-        }
 
         const payload = jwt.decode(token)
 

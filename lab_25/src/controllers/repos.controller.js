@@ -1,54 +1,52 @@
 import prisma from '../db.js'
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library.js'
 
-class commitsController {
-    async findAll(req, res) {
-        const repo = await prisma.repo.findUnique({
-            where: {
-                id: Number(req.params['repoId']),
-            },
-            include: {
-                Commits: true,
-            },
-        })
+class reposContorller {
+    async findAll(_, res) {
+        const repos = await prisma.repo.findMany()
 
-        if (!repo) {
-            return res.status(404).json({ code: 404, message: 'not found' })
-        }
-
-        res.json(repo.Commits)
+        res.json(repos)
     }
 
     async findOne(req, res) {
-        const commit = await prisma.commit.findFirst({
-            where: {
-                id: Number(req.params['commitId']),
-                repoId: Number(req.params['repoId']),
-            },
-        })
+        try {
+            const repo = await prisma.repo.findUnique({
+                where: {
+                    id: Number(req.params['id']),
+                },
+            })
 
-        if (!commit) {
-            return res.status(404).json({ code: 404, message: 'not found' })
+            if (!repo) {
+                return res.status(404).json({ code: 404, message: 'not found' })
+            }
+
+            res.json(repo)
+        } catch (e) {
+            console.log(e)
+            if (e instanceof PrismaClientKnownRequestError) {
+                return res.status(409).json({ code: 409, message: 'conflict' })
+            }
+
+            return res.status(400).json({ code: 400, message: 'bad request' })
         }
-
-        res.json(commit)
     }
 
     async create(req, res) {
         try {
-            const commit = await prisma.commit.create({
+            const repo = await prisma.repo.create({
                 data: {
-                    message: req.body['message'],
-                    repo: {
+                    name: req.body['name'],
+                    user: {
                         connect: {
-                            id: Number(req.params['repoId']),
+                            id: Number(req.user['id']),
                         },
                     },
                 },
             })
 
-            res.json(commit)
+            res.json(repo)
         } catch (e) {
+            console.log(e)
             if (e instanceof PrismaClientKnownRequestError) {
                 return res.status(409).json({ code: 409, message: 'conflict' })
             }
@@ -59,16 +57,16 @@ class commitsController {
 
     async update(req, res) {
         try {
-            const commit = await prisma.commit.update({
+            const repo = await prisma.repo.update({
                 where: {
-                    id: Number(req.params['commitId']),
+                    id: Number(req.params['id']),
                 },
                 data: {
-                    message: req.body['message'],
+                    name: req.body['name'],
                 },
             })
 
-            res.json(commit)
+            res.json(repo)
         } catch (e) {
             console.log(e)
             if (e instanceof PrismaClientKnownRequestError) {
@@ -81,14 +79,15 @@ class commitsController {
 
     async delete(req, res) {
         try {
-            const commit = await prisma.commit.delete({
+            const repo = await prisma.repo.delete({
                 where: {
-                    id: Number(req.params['commitId']),
+                    id: Number(req.params['id']),
                 },
             })
 
-            res.json(commit)
+            res.json(repo)
         } catch (e) {
+            console.log(e)
             if (e instanceof PrismaClientKnownRequestError) {
                 return res.status(409).json({ code: 409, message: 'conflict' })
             }
@@ -98,4 +97,4 @@ class commitsController {
     }
 }
 
-export const controller = new commitsController()
+export const controller = new reposContorller()
