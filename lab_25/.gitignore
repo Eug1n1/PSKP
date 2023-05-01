@@ -4,3 +4,5 @@ node_modules
 
 /prisma/*
 !/prisma/schema.prisma
+
+/requests/cookies

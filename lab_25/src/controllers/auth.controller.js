@@ -96,7 +96,7 @@ class authContorller {
     async logout(req, res) {
         await prisma.user.updateMany({
             where: {
-                username: req.user.username,
+                id: req.user['id'],
                 rt: {
                     not: null,
                 },
@@ -109,7 +109,7 @@ class authContorller {
         res.clearCookie('accessToken')
         res.clearCookie('refreshToken')
 
-        res.end('logout')
+        return res.json({ message: 'logout' })
     }
 
     async getTokens(payload) {

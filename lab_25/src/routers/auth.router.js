@@ -21,6 +21,10 @@ router.post('/logout', jwtStrategy, function (req, res) {
     authController.logout(req, res)
 })
 
+router.get('/logout', jwtStrategy, function (req, res) {
+    authController.logout(req, res)
+})
+
 router.get('/abilities', jwtStrategy, function (req, res) {
     authController.getAbilities(req, res)
 })
