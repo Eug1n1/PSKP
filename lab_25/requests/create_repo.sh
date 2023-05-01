@@ -1,5 +1,5 @@
 #!/bin/bash
-curl -X POST http://localhost:3000/api/repos/$1/commits/$2 \
-    -d "name=$3" \
+curl -X POST http://localhost:3000/api/repos/ \
+    -d "name=$1" \
     -b ./cookies \
     | jq .
