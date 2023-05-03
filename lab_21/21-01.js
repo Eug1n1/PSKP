@@ -9,17 +9,17 @@ const DB_FILE_PATH = './contacts.json'
 const app = express()
 
 app.use(express.json())
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static('static'))
 
-app.engine('.html', engine({ extname: '.html' }));
-app.set('view engine', '.html');
-app.set('views', './views');
+app.engine('.html', engine({ extname: '.html' }))
+app.set('view engine', '.html')
+app.set('views', './views')
 
 const helpers = {
     cancel(action, method) {
         return `<button type="submit" formaction="${action}" formmethod="${method}">cancel</button>`
-    }
+    },
 }
 
 app.get('/', (req, res) => {
@@ -33,27 +33,41 @@ app.get('/add', (req, res) => {
 
     res.render('add', {
         data: {
-            contacts
+            contacts: contacts.map((e) => {
+                return { ...e, block: true }
+            }),
         },
-        helpers
+        helpers,
     })
 })
 
 app.get('/update', (req, res) => {
-    const id = req.query.id
+    try {
+        const id = req.query.id
 
-    const contacts = JSON.parse(readFileSync(DB_FILE_PATH))
+        const contacts = JSON.parse(readFileSync(DB_FILE_PATH))
 
-    const index = contacts.findIndex(e => e.id === id)
-    const contact = contacts[index]
+        const index = contacts.findIndex((e) => e.id === id)
 
-    res.render('update', {
-        data: {
-            contact,
-            contacts,
-        },
-        helpers
-    })
+        if (index === -1) {
+            throw { Error: 'element not found' }
+        }
+
+        const contact = contacts[index]
+
+        res.render('update', {
+            data: {
+                contact,
+                contacts: contacts.map((e) => {
+                    return { ...e, block: true }
+                }),
+            },
+            helpers,
+        })
+    } catch (e) {
+        console.log(e)
+        res.render('error', { error: JSON.stringify(e) })
+    }
 })
 
 app.post('/add', (req, res) => {
@@ -61,7 +75,7 @@ app.post('/add', (req, res) => {
         const contact = req.body
 
         if (!contact.name || !contact.phone) {
-            throw { "Error": "no data" }
+            throw { Error: 'no data' }
         }
 
         const contacts = JSON.parse(readFileSync(DB_FILE_PATH))
@@ -84,14 +98,14 @@ app.post('/update/:id', (req, res) => {
         const contact = req.body
 
         if (!contact.name || !contact.phone) {
-            throw { "Error": "no data" }
+            throw { Error: 'no data' }
         }
 
         const contacts = JSON.parse(readFileSync(DB_FILE_PATH))
-        const index = contacts.findIndex(e => e.id === id)
+        const index = contacts.findIndex((e) => e.id === id)
 
         if (index === -1) {
-            throw { "Error": "element not found" }
+            throw { Error: 'element not found' }
         }
 
         contact.id = id
@@ -112,10 +126,10 @@ app.post('/delete/:id', (req, res) => {
         const id = req.params.id
 
         const contacts = JSON.parse(readFileSync(DB_FILE_PATH))
-        const index = contacts.findIndex(e => e.id === id)
+        const index = contacts.findIndex((e) => e.id === id)
 
         if (index === -1) {
-            throw { "Error": "element not found" }
+            throw { Error: 'element not found' }
         }
 
         // let element = contacts[index]
@@ -129,6 +143,5 @@ app.post('/delete/:id', (req, res) => {
         res.render('error', { error: JSON.stringify(e) })
     }
 })
-
 
 app.listen(3000)

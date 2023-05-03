@@ -1,9 +1,28 @@
+{{#if block }}
+<a class="contact_btn blocked_btn">
+    <div class="contact_name">{{name}}</div>
+    <div class="contact_phone">{{phone}}</div>
+</a>
+{{else}}
 <a href="/update?id={{id}}&name={{name}}&phone={{phone}}" class="contact_btn">
     <div class="contact_name">{{name}}</div>
     <div class="contact_phone">{{phone}}</div>
 </a>
+{{/if}}
+
+<!-- <button type="submit" class="contact_btn">
+    <div class="contact_name">{{name}}</div>
+    <div class="contact_phone">{{phone}}</div>
+</button> -->
 
 <!-- <button type="submit" class="contact_btn" formmethod="get" formaction="/update?id={{id}}&name={{name}}&phone={{phone}}">
     <div class="contact_name">{{name}}</div>
     <div class="contact_phone">{{phone}}</div>
+</button>
+ -->
+<!-- <button type="submit" class="contact_btn">
+    <a href=" /update?id={{id}}&name={{name}}&phone={{phone}}" class="contact_btn">
+        <div class="contact_name">{{name}}</div>
+        <div class="contact_phone">{{phone}}</div>
+    </a>
 </button> -->

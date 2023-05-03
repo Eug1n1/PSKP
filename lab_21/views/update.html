@@ -14,7 +14,7 @@
 
     <div class="form_btns">
         <button type="submit" formaction="/update/{{data.contact.id}}" formmethod="post">update</button>
-        <button type="submit" formaction="/delete/{{data.contact.id}}" formmethod="post">delete</button>
+        <button type="submit" id="delete_btn" formaction="/delete/{{data.contact.id}}" formmethod="post">delete</button>
         <!-- <button type="submit" formaction="/" formmethod="get">cancel</button> -->
         {{{cancel '/' 'get'}}}
     </div>
